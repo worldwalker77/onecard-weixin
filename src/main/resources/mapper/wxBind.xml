@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.worldwalker.onecard.weixin.dao.WxBindDao">
+
+	<resultMap id="wxBindResultMap" type="cn.worldwalker.onecard.weixin.domain.WxBindModel" >
+		<id column="id" property="id"/>
+		<result column="id_num" property="idNum"/>
+		<result column="open_id" property="openId"/>
+		<result column="mobile_phone" property="mobilePhone"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
+	</resultMap>
+	
+	<select id="selectWxBind"  parameterType ="cn.worldwalker.onecard.weixin.domain.WxBindModel" resultMap="wxBindResultMap">
+	    select id_num, open_id from cfs_wx_bind 
+	    where 1=1 
+	    <if test="idNum != null">
+	    	and id_num = #{idNum}
+	  	</if>
+	  	<if test="openId != null">
+	    	and open_id = #{openId}
+	  	</if>
+	</select>
+	
+	<insert id="insertWxBind" parameterType="cn.worldwalker.onecard.weixin.domain.WxBindModel">  
+	     <selectKey keyProperty="id" resultType="Long">  
+	         select LAST_INSERT_ID()  
+	     </selectKey>  
+	     insert into cfs_wx_bind( 
+	     					id_num, 
+	     					open_id, 
+	     					mobile_phone,
+	     					create_time,
+	     					update_time
+	     				   ) 
+	     			values( 
+	     					#{idNum}, 
+	     					#{openId}, 
+	     					#{mobilePhone}, 
+	     					now(), 
+	     					now()
+	     				  )    
+    </insert>  
+
+</mapper>
+
+
