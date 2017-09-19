@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.worldwalker.onecard.weixin.dao.PolicyDao">
+
+	<resultMap id="policyResultMap" type="cn.worldwalker.onecard.weixin.domain.PolicyModel" >
+		<id column="id" property="id"/>
+		<result column="title" property="title"/>
+		<result column="content" property="content"/>
+		<result column="create_time" property="createTime"/>
+	</resultMap>
+	
+	<select id="selectPolicyByTitle"  parameterType ="cn.worldwalker.onecard.weixin.domain.PolicyModel" resultMap="policyResultMap">
+	    select title, content from cfs_policy 
+	    where title like CONCAT('%','${title}','%' ) 
+	    limit #{start},#{limit}
+	</select>
+	
+	<insert id="insertPolicy" parameterType="cn.worldwalker.onecard.weixin.domain.PolicyModel">  
+	     <selectKey keyProperty="id" resultType="Long">  
+	         select LAST_INSERT_ID()  
+	     </selectKey>  
+	     insert into cfs_policy( 
+	     					title, 
+	     					content, 
+	     					create_time,
+	     				   ) 
+	     			values( 
+	     					#{title}, 
+	     					#{content}, 
+	     					now()
+	     				  )    
+    </insert>  
+
+</mapper>
+
+

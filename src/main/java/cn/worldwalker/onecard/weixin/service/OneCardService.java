@@ -12,5 +12,9 @@ public interface OneCardService{
 	
 	public String getOpenIdFromWeiXin(String code);
 	
-	public Result queryNews(QueryModel queryModel);
+	public Result queryPolicyList(QueryModel queryModel);
+	
+	public Result queryFeedbacks();
+	
+    public Result queryPolicyList();
 }

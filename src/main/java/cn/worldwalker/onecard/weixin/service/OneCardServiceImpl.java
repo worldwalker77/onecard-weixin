@@ -10,8 +10,10 @@ import org.springframework.stereotype.Service;
 import cn.worldwalker.onecard.weixin.common.exception.BusinessException;
 import cn.worldwalker.onecard.weixin.common.exception.ExceptionEnum;
 import cn.worldwalker.onecard.weixin.common.utils.RequestUtil;
+import cn.worldwalker.onecard.weixin.dao.PolicyDao;
 import cn.worldwalker.onecard.weixin.dao.WxBindDao;
-import cn.worldwalker.onecard.weixin.domain.NewsModel;
+import cn.worldwalker.onecard.weixin.domain.FeedBackModel;
+import cn.worldwalker.onecard.weixin.domain.PolicyModel;
 import cn.worldwalker.onecard.weixin.domain.QueryModel;
 import cn.worldwalker.onecard.weixin.domain.Result;
 import cn.worldwalker.onecard.weixin.domain.UserSession;
@@ -25,6 +27,8 @@ public class OneCardServiceImpl implements OneCardService{
 	private WeiXinRpc weiXinRpc;
 	@Autowired
 	private WxBindDao wxBindDao;
+	@Autowired
+	private PolicyDao policyDao;
 	
 
 	@Override
@@ -76,17 +80,37 @@ public class OneCardServiceImpl implements OneCardService{
 
 
 	@Override
-	public Result queryNews(QueryModel queryModel) {
+	public Result queryPolicyList(QueryModel queryModel) {
 		Result result = new Result();
-		List<NewsModel> newsList = new ArrayList<NewsModel>();
-		NewsModel newsModel1 = new NewsModel();
+		PolicyModel pmodel = new PolicyModel();
+		pmodel.setStart(queryModel.getStart());
+		pmodel.setLimit(queryModel.getLimit());
+		pmodel.setTitle(queryModel.getTitle());
+		List<PolicyModel> policyList = policyDao.selectPolicyByTitle(pmodel);
+		result.setData(policyList);
+		return result;
+	}
+
+
+	@Override
+	public Result queryFeedbacks() {
+		Result result = new Result();
+		List<FeedBackModel> newsList = new ArrayList<FeedBackModel>();
+		FeedBackModel newsModel1 = new FeedBackModel();
 		newsModel1.setTitle("标题1");
-		NewsModel newsModel2 = new NewsModel();
+		FeedBackModel newsModel2 = new FeedBackModel();
 		newsModel2.setTitle("标题2");
 		newsList.add(newsModel1);
 		newsList.add(newsModel2);
 		result.setData(newsList);
 		return result;
+	}
+
+
+	@Override
+	public Result queryPolicyList() {
+		
+		return null;
 	}
 
 }
