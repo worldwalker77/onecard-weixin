@@ -52,19 +52,23 @@ $(function(){
 	                    var len = list.length;
 	                    var items = '';
 	                    for(var i =0;i<len;i++){
+	                    	var bankStatusShow = "<span class='f_green'>已成功</span>";
+	                    	if (list[i].bankStatus == 1) {
+	                    		bankStatusShow = "<span class='f_red'>已失败</span>";
+							}
 	                    	var liItem = "<li>" +
 			                    			"<div class='subsidy_header'>" +
-				                    			"<p>姓名：萨克的附件</p>" +
-				                    			"<p>身份证号码：110110198008083584</p>" +
-				                    			"<p>村组：圣诞快乐方可可可时代峻峰</p>" +
-				                    			"<p>发放总金额：<span class='f_red'>1500元</span></p>" +
+				                    			"<p>姓名：" +list[i].fName + "</p>" +
+				                    			"<p>身份证号码：" +list[i].idNum + "</p>" +
+				                    			"<p>村组：" +list[i].grName + "</p>" +
+				                    			"<p>发放总金额：<span class='f_red'>不知道哪个字段</span></p>" +
 			                    			"</div>" +
 			                    			"<div class='subsidy_txt'>" +
-				                    			"<p>项目名称：可时代峰峻</p>" +
-				                    			"<p>发放时间：2017-09-12</p>" +
-				                    			"<p>发送状态：<span class='f_green'>已成功</span><span class='f_red'>已失败</span></p>" +
-				                    			"<p>发放金额：<span class='f_red'>1500元</span></p>" +
-				                    			"<p>发放明细：拉丝粉可莱丝大连开发斯蒂芬</p>" +
+				                    			"<p>项目名称：" +list[i].proName + "</p>" +
+				                    			"<p>发放时间：" +list[i].grantDate + "</p>" +
+				                    			"<p>发送状态：" + bankStatusShow + "</p>" +
+				                    			"<p>发放金额：<span class='f_red'>不知道哪个字段</span></p>" +
+				                    			"<p>发放明细：不知道哪个字段</p>" +
 			                    			"</div>" +
 		                    			"</li>";
 	                    	items += liItem;

@@ -9,6 +9,8 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import cn.worldwalker.onecard.weixin.common.utils.RequestUtil;
+import cn.worldwalker.onecard.weixin.dao.ContactInfoDao;
+import cn.worldwalker.onecard.weixin.domain.ContactInfoModel;
 import cn.worldwalker.onecard.weixin.domain.UserSession;
 import cn.worldwalker.onecard.weixin.domain.WxBindModel;
 import cn.worldwalker.onecard.weixin.service.OneCardService;
@@ -17,6 +19,8 @@ public class LoginInterceptor  extends HandlerInterceptorAdapter {
 	
 	@Autowired
 	private OneCardService oneCardService;
+	@Autowired
+	private ContactInfoDao contactInfoDao;
 	
 	@Override
 	public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object handler) throws Exception {
@@ -28,7 +32,7 @@ public class LoginInterceptor  extends HandlerInterceptorAdapter {
 				httpServletResponse.sendRedirect("/bind/reentrytip");
 				return false;
 			}
-			/***如果授权code存在，则说明是打开微信菜单进行页面授权的请求*/
+			/***如果授权code存在，则说明是打开微信菜单进行页面授权的请求,根据code从微信获取信息*/
 			String openId = oneCardService.getOpenIdFromWeiXin(code);
 			/**如果拿不到微信信息，则重新进菜单进行页面授权**/
 			if (StringUtils.isBlank(openId)) {
@@ -47,8 +51,15 @@ public class LoginInterceptor  extends HandlerInterceptorAdapter {
 			/**如果已经绑定，则设置httpsession*/
 			UserSession userSession = new UserSession();
 			userSession.setIdNum(wxModel.getIdNum());
-			userSession.setMobilePhone(wxModel.getMobilePhone());
 			userSession.setOpenId(openId);
+			/**从contactInfo表里面根据身份证号获取其他的信息，放入session中，方便后面的功能使用*/
+			ContactInfoModel cim = contactInfoDao.selectContactInfoByIdNum(wxModel.getIdNum());
+			if (cim != null) {
+				userSession.setMobilePhone(cim.getTel());
+				userSession.setfName(cim.getfName());
+				userSession.setEnName(cim.getEnName());
+				userSession.setGrName(cim.getGrName());
+			}
 			RequestUtil.setUserSession(userSession);
 		}
 		return true;

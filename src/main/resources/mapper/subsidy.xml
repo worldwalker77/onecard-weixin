@@ -6,7 +6,7 @@
 
 	<resultMap id="subsidyResultMap" type="cn.worldwalker.onecard.weixin.domain.SubsidyModel" >
 		<id column="id" property="id"/>
-		<result column="id_num" property="id_num"/>
+		<result column="id_no" property="id_num"/>
 		<result column="f_name" property="fName"/>
 		<result column="en_name" property="enName"/>
 		<result column="gr_name" property="grName"/>
@@ -16,8 +16,8 @@
 	</resultMap>
 	
 	<select id="selectSubsidys"  parameterType ="cn.worldwalker.onecard.weixin.domain.SubsidyModel" resultMap="subsidyResultMap">
-	    select id_num, f_name, en_name,gr_name,pro_name ,bank_status ,grant_date  from cfs_grant_360731
-	    where id_num = #{idNum} and  grant_date > #{startTime} and grant_date > #{endTime}
+	    select id_no, f_name, en_name,gr_name,pro_name ,bank_status ,grant_date  from cfs_grant_360731
+	    where id_no = #{idNum} and  grant_date > #{startTime} and grant_date > #{endTime}
 	    limit #{start},#{limit}
 	</select>
 	

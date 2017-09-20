@@ -6,7 +6,7 @@
 
 	<resultMap id="contactInfoResultMap" type="cn.worldwalker.onecard.weixin.domain.ContactInfoModel" >
 		<id column="id" property="id"/>
-		<result column="id_num" property="idNum"/>
+		<result column="id_no" property="idNum"/>
 		<result column="f_name" property="fName"/>
 		<result column="en_name" property="enName"/>
 		<result column="gr_num" property="grNum"/>
@@ -14,8 +14,8 @@
 	</resultMap>
 	
 	<select id="selectContactInfoByIdNum"  parameterType ="String" resultMap="contactInfoResultMap">
-	    select id, id_num, f_name,en_name,gr_name,tel from cfs_contact_info 
-	    where id_num = #{#idNum}
+	    select id, id_no, f_name,en_name,gr_name,tel from cfs_contact_info 
+	    where id_no = #{#idNum}
 	</select>
 	
 </mapper>
