@@ -104,8 +104,8 @@ public class OneCardServiceImpl implements OneCardService{
 	 */
 	@Override
 	public String getOpenIdFromWeiXin(String code) {
-//		return weiXinRpc.getOpenId(code);
-		return "owOENwWf_yn3l0JXu-u8BYzoxOfw";
+		return weiXinRpc.getOpenId(code);
+//		return "owOENwWf_yn3l0JXu-u8BYzoxOfw";
 	}
 
 	/**

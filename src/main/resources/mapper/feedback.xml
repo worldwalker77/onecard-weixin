@@ -22,6 +22,7 @@
 	<select id="selectFeedbacks"  parameterType ="cn.worldwalker.onecard.weixin.domain.FeedBackModel" resultMap="feedbackResultMap">
 	    select id, title, content, create_time from cfs_suggest1 
 	    where open_id = #{openId} and title like CONCAT('%','${title}','%' ) 
+	    order by create_time desc
 	    limit #{start},#{limit}
 	</select>
 	

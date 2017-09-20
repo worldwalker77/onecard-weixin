@@ -66,9 +66,9 @@
 	                contentType: "application/json",
 	                success: function(res){
 							if(res.code == 0){
-								alert("成功");
+								window.location.replace('/onecard/feedbackList');
 							}else{
-								alert("失败");
+								alert(res.desc);
 							}                
 	                },
 	                error: function(xhr, type){
