@@ -25,38 +25,6 @@ public class OneCardController {
 	private OneCardService oneCardService;
 	
 	/**
-	 * 政策法规展示页
-	 * @return
-	 */
-	@RequestMapping(value="/policy")
-	public ModelAndView news(){
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("wechat/policy");
-		return mv;
-	}
-	/**
-	 * 获取政策法规列表
-	 * @param pageSize
-	 * @param pageNum
-	 * @param title
-	 * @return
-	 */
-	@RequestMapping(value="/queryPolicyList")
-	@ResponseBody
-	public Result queryPolicyList(Integer pageSize, Integer pageNum, String title){
-		Result result = null;
-		try {
-			result = oneCardService.queryPolicyList(pageSize, pageNum, title);
-		} catch (Exception e) {
-			log.error("queryPolicyList异常", e);
-			result = new Result();
-			result.setCode(ExceptionEnum.SYSTEM_ERROR.code);
-			result.setDesc(ExceptionEnum.SYSTEM_ERROR.desc);
-		}
-		return result;
-	}
-	
-	/**
 	 * 新增投诉页
 	 * @return
 	 */

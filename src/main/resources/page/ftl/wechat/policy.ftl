@@ -21,20 +21,22 @@
     <script src="/resources/js/jquery/jquery.min.js"></script>
 </head>
 <body>
-    <div class="new_header">
-        <table cellpadding="0" cellspacing="0" class="new_table">
-            <tr>
-                <td><input id="title" type="text" class="input_max" /></td>
-                <th><input id="news_query" type="button" value="查 询" class="submit_btn" /></th>
-            </tr>
-        </table>
+	<div id="policy-container">
+	    <div class="new_header">
+	        <table cellpadding="0" cellspacing="0" class="new_table">
+	            <tr>
+	                <td><input id="title" type="text" class="input_max" /></td>
+	                <th><input id="news_query" type="button" value="查 询" class="submit_btn" /></th>
+	            </tr>
+	        </table>
+	    </div>
+	    <div class="new_title">政策法规<span class="fr">发布时间</span></div>
+	    <div id="content">
+		    <ul class="news_list">
+		    </ul>
+	    </div>
+	    <div id="scroll-end" style="display:none;text-align:center">没有更多啦</div>
     </div>
-    <div class="new_title">政策法规<span class="fr">发布时间</span></div>
-    <div id="content">
-	    <ul class="news_list">
-	    </ul>
-    </div>
-    <div id="scroll-end" style="display:none;text-align:center">没有更多啦</div>
     <script type="text/javascript" src="/resources/js/wechat/policy.js?version=${version}"></script>
 </body>
 </html>

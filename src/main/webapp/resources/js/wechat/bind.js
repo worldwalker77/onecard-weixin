@@ -23,7 +23,7 @@ var bindUtil = {
 			        },
 			        success: function (data) {
 			        	if (data.code != 0) {
-			        		$.alert(data.desc);
+			        		alert(data.desc);
 						}else{
 							window.location.replace($('#redirectUrl').val());
 						}
@@ -32,7 +32,7 @@ var bindUtil = {
 			            
 			        },
 			        error: function (data) {
-			        	$.alert("异常");
+			        	alert("异常");
 			        }
 			    });
 			});

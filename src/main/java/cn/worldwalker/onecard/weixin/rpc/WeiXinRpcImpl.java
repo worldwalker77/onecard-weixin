@@ -11,7 +11,19 @@ import cn.worldwalker.onecard.weixin.domain.WeiXinUserInfo;
 
 @Service
 public class WeiXinRpcImpl implements WeiXinRpc{
-
+	
+	@Override
+	public String getOpenId(String code) {
+		String url = Constant.getOpenidAndAccessCode;
+		url = url.replace("CODE", code);
+		JSONObject obj = HttpClientUtil.httpRequest(url, "POST", null);
+		if (obj != null && obj.containsKey("errcode"))
+			return null;
+		else{
+			String openid = obj.getString("openid");
+			return openid;
+		}
+	}
 	@Override
 	public WeiXinUserInfo getWeiXinUserInfo(String code) {
 		WeiXinAccess weiXinAccess = getWeiXinAccess(code);
@@ -57,15 +69,15 @@ public class WeiXinRpcImpl implements WeiXinRpc{
 			String refresh_token = obj.getString("refresh_token");//用户刷新access_token
 			Long expires_in = obj.getLong("expires_in");//access_token接口调用凭证超时时间，单位（秒）
 			String scope = obj.getString("scope");//用户授权的作用域，使用逗号（,）分隔
-			String unionid = obj.getString("unionid");// 只有在用户将公众号绑定到微信开放平台帐号后，才会出现该字段
+//			String unionid = obj.getString("unionid");// 只有在用户将公众号绑定到微信开放平台帐号后，才会出现该字段
 			weiXinAccess.setOpenid(openid);
 			weiXinAccess.setAccess_token(access_token);
 			weiXinAccess.setRefresh_token(refresh_token);
 			weiXinAccess.setExpires_in(expires_in);
 			weiXinAccess.setScope(scope);
-			weiXinAccess.setUnionid(unionid);
+//			weiXinAccess.setUnionid(unionid);
 			return weiXinAccess;
 		}
 	}
-	
+
 }

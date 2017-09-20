@@ -104,12 +104,8 @@ public class OneCardServiceImpl implements OneCardService{
 	 */
 	@Override
 	public String getOpenIdFromWeiXin(String code) {
-//		WeiXinUserInfo wxUserInfo = weiXinRpc.getWeiXinUserInfo(code);
-//		if (wxUserInfo == null) {
-//			return null;
-//		}
-//		return wxUserInfo.getOpenId();
-		return "testopenid";
+//		return weiXinRpc.getOpenId(code);
+		return "owOENwWf_yn3l0JXu-u8BYzoxOfw";
 	}
 
 	/**
@@ -197,8 +193,12 @@ public class OneCardServiceImpl implements OneCardService{
 		model.setStart(pageSize*pageNum);
 		model.setLimit(pageSize);
 		model.setIdNum(RequestUtil.getIdNumFromSession());
-		model.setStartTime(startTime);
-		model.setEndTime(endTime);
+		if (StringUtils.isNotBlank(startTime)) {
+			model.setStartTime(startTime);
+		}
+		if (StringUtils.isNotBlank(endTime)) {
+			model.setEndTime(endTime);
+		}
 		List<SubsidyModel> list = subsidyDao.selectSubsidys(model);
 		Result result = new Result();
 		result.setData(list);

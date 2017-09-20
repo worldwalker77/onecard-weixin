@@ -23,24 +23,26 @@
     <script src="/resources/js/utils/mobiscroll-2.13.2.full.min.js"></script>
 </head>
 <body>
-    <div class="Inquire_box">
-        <table cellpadding="0" cellspacing="0" class="Inquire_table">
-            <tr>
-                <th>选择开始时间</th>
-                <td><input id="start_time" type="text" class="input_max" /></td>
-            </tr>
-            <tr>
-                <th>选择结束时间</th>
-                <td><input id="end_time" type="text" class="input_max" /></td>
-            </tr>
-        </table>
-        <div class="Inquire_op"><input id="subsidy-query-btn" type="submit" value="确定" class="submit_btn" /></div>
+	<div id="subsidy-container">
+	    <div class="Inquire_box">
+	        <table cellpadding="0" cellspacing="0" class="Inquire_table">
+	            <tr>
+	                <th>选择开始时间</th>
+	                <td><input id="start_time" type="text" class="input_max" /></td>
+	            </tr>
+	            <tr>
+	                <th>选择结束时间</th>
+	                <td><input id="end_time" type="text" class="input_max" /></td>
+	            </tr>
+	        </table>
+	        <div class="Inquire_op"><input id="subsidy-query-btn" type="submit" value="确定" class="submit_btn" /></div>
+	    </div>
+	    <div class="subsidy_result">
+	        <ul class="subsidy_list">
+	        </ul>
+	    </div>
+	    <div id="scroll-end" style="display:none;text-align:center">没有更多啦</div>
     </div>
-    <div class="subsidy_result">
-        <ul class="subsidy_list">
-        </ul>
-    </div>
-    <div id="scroll-end" style="display:none;text-align:center">没有更多啦</div>
     <script type="text/javascript" src="/resources/js/wechat/subsidy.js?version=${version}"></script>
 </body>
 </html>

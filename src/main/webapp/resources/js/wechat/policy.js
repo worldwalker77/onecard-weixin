@@ -39,7 +39,7 @@ $(function(){
 		 queryNews:function(){
 			 $.ajax({
 	                type: 'GET',
-	                url: "/onecard/queryPolicyList?" + "pageSize=" + pageSize + '&pageNum=' + pageNum + '&title=' + $("#title").val(),
+	                url: "/rule/queryPolicyList?" + "pageSize=" + pageSize + '&pageNum=' + pageNum + '&title=' + $("#title").val(),
 	                dataType: 'json',
 	                success: function(res){
 	                	pageNum++;

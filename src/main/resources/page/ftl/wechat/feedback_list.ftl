@@ -21,11 +21,13 @@
     <script src="/resources/js/jquery/jquery.min.js"></script>
 </head>
 <body>
-	<div>
-	    <ul class="feed_list">
-	    </ul>
+	<div id="feedback-container">
+		<div id="feed-list-c">
+		    <ul class="feed_list">
+		    </ul>
+	    </div>
+	    <div id="scroll-end" style="display:none;text-align:center">没有更多啦</div>
     </div>
-    <div id="scroll-end" style="display:none;text-align:center">没有更多啦</div>
     <script type="text/javascript" src="/resources/js/wechat/feedback_list.js?version=${version}"></script>
 </body>
 </html>
