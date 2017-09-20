@@ -34,14 +34,6 @@
                     <textarea id="content" rows="2" cols="20" class="input_txt" required="required"></textarea>
                 </td>
             </tr>
-            <tr>
-                <th>联系人</th>
-                <td><input id="name" type="text" class="input_txt" required="required" /></td>
-            </tr>
-            <tr>
-                <th>联系方式</th>
-                <td><input id="phone" type="text" class="input_txt" maxlength="11" required="required" /></td>
-            </tr>
         </table>
         <div class="op_box">
             <input id="save" type="submit" value="确定" class="submit_btn" onclick="save();" />
@@ -59,20 +51,13 @@
                 falg = false;
                 return false;
             }else {
-                if ($(this).attr("id") == "phone") {
-                    if (verfyphonenumber($("#phone")) == false) {
-                        falg = false;
-                        return false;
-                    }
-                }else { falg = true;}
+                falg = true;
             }
         });
         if (falg) {
         		var param = {
     					title:$("#title").val(),
-    					content:$("#content").val(),
-    					name:$("#name").val(),
-    					phone:$("#phone").val()
+    					content:$("#content").val()
         		};
         		$.ajax({
 	                type: 'POST',

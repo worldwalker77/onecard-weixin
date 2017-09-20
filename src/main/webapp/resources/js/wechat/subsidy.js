@@ -44,6 +44,11 @@ $(function(){
 	                success: function(res){
 	                	pageNum++;
 	                    var list = res.data;
+	                    if (list == null) {
+	                    	isEnd = true;
+	                    	$("#scroll-end").css('display','block'); 
+	                    	return;
+						}
 	                    var len = list.length;
 	                    var items = '';
 	                    for(var i =0;i<len;i++){

@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.worldwalker.onecard.weixin.common.exception.ExceptionEnum;
+import cn.worldwalker.onecard.weixin.common.utils.JsonUtil;
 import cn.worldwalker.onecard.weixin.domain.FeedBackModel;
-import cn.worldwalker.onecard.weixin.domain.QueryModel;
 import cn.worldwalker.onecard.weixin.domain.Result;
 import cn.worldwalker.onecard.weixin.service.OneCardService;
 
@@ -18,12 +19,10 @@ import cn.worldwalker.onecard.weixin.service.OneCardService;
 @RequestMapping(value="/onecard")
 public class OneCardController {
 	
-	protected static final Logger logger = LoggerFactory.getLogger(OneCardController.class);
+	protected static final Logger log = LoggerFactory.getLogger(OneCardController.class);
 	
 	@Autowired
 	private OneCardService oneCardService;
-	
-	
 	
 	/**
 	 * 政策法规展示页
@@ -45,13 +44,16 @@ public class OneCardController {
 	@RequestMapping(value="/queryPolicyList")
 	@ResponseBody
 	public Result queryPolicyList(Integer pageSize, Integer pageNum, String title){
-		QueryModel queryModel = new QueryModel();
-		queryModel.setPageNum(pageNum);
-		queryModel.setPageSize(pageSize);
-		queryModel.setTitle(title);
-		queryModel.setStart(pageSize*pageNum);
-		queryModel.setLimit(pageSize);
-		return oneCardService.queryPolicyList(queryModel);
+		Result result = null;
+		try {
+			result = oneCardService.queryPolicyList(pageSize, pageNum, title);
+		} catch (Exception e) {
+			log.error("queryPolicyList异常", e);
+			result = new Result();
+			result.setCode(ExceptionEnum.SYSTEM_ERROR.code);
+			result.setDesc(ExceptionEnum.SYSTEM_ERROR.desc);
+		}
+		return result;
 	}
 	
 	/**
@@ -72,7 +74,15 @@ public class OneCardController {
 	@RequestMapping(value="/addFeedBack")
 	@ResponseBody
 	public Result addFeedBack(@RequestBody FeedBackModel model){
-		Result result = new Result();
+		Result result = null;
+		try {
+			result = oneCardService.addFeedback(model);
+		} catch (Exception e) {
+			log.error("addFeedback异常, model:" + JsonUtil.toJson(model), e);
+			result = new Result();
+			result.setCode(ExceptionEnum.SYSTEM_ERROR.code);
+			result.setDesc(ExceptionEnum.SYSTEM_ERROR.desc);
+		}
 		return result;
 	}
 	
@@ -92,17 +102,28 @@ public class OneCardController {
 	 */
 	@RequestMapping(value="/queryFeedbackList")
 	@ResponseBody
-	public Result queryFeedbacks(){
-		return oneCardService.queryFeedbacks();
+	public Result queryFeedbacks(Integer pageSize, Integer pageNum){
+		Result result = null;
+		try {
+			result = oneCardService.queryFeedbacks(pageSize, pageNum);
+		} catch (Exception e) {
+			log.error("queryFeedbacks异常", e);
+			result = new Result();
+			result.setCode(ExceptionEnum.SYSTEM_ERROR.code);
+			result.setDesc(ExceptionEnum.SYSTEM_ERROR.desc);
+		}
+		return result;
 	}
 	/**
 	 * 某条投诉建议详情
 	 * @return
 	 */
 	@RequestMapping(value="/feedbackDetail")
-	public ModelAndView feedbackDetail(){
+	public ModelAndView feedbackDetail(Long id){
 		ModelAndView mv = new ModelAndView();
+		FeedBackModel model = oneCardService.queryFeedbackDetail(id);
 		mv.setViewName("wechat/feedback_detail");
+		mv.addObject("model", model);
 		return mv;
 	}
 	
@@ -123,7 +144,17 @@ public class OneCardController {
 	@RequestMapping(value="/querySubsidyList")
 	@ResponseBody
 	public Result querySubsibyList(Integer pageSize, Integer pageNum, String startTime, String endTime){
-		return oneCardService.queryFeedbacks();
+		
+		Result result = null;
+		try {
+			result = oneCardService.querySubsidys(pageSize, pageNum, startTime, endTime);
+		} catch (Exception e) {
+			log.error("querySubsidys异常", e);
+			result = new Result();
+			result.setCode(ExceptionEnum.SYSTEM_ERROR.code);
+			result.setDesc(ExceptionEnum.SYSTEM_ERROR.desc);
+		}
+		return result;
 	}
 	
 }

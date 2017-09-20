@@ -63,6 +63,28 @@ public class RequestUtil {
 		if (null != sessionObject) {
 			return (String)sessionObject;
 		}
+		sessionObject = session.getAttribute("userSession");
+		UserSession userSession = null;
+		if (null != sessionObject) {
+			userSession = JsonUtil.toObject(String.valueOf(sessionObject), UserSession.class);
+		}
+		if (userSession != null) {
+			return userSession.getOpenId();
+		}
+		return null;
+	}
+	
+	public static String getIdNumFromSession(){
+		HttpServletRequest request = getHttpServletRequest();
+		HttpSession session = request.getSession();
+		Object sessionObject = session.getAttribute("userSession");
+		UserSession userSession = null;
+		if (null != sessionObject) {
+			userSession = JsonUtil.toObject(String.valueOf(sessionObject), UserSession.class);
+		}
+		if (userSession != null) {
+			return userSession.getIdNum();
+		}
 		return null;
 	}
 	
@@ -92,7 +114,6 @@ public class RequestUtil {
 		if (null == sessionObject) {
 			return false;
 		}
-		UserSession userSession = JsonUtil.toObject(String.valueOf(sessionObject), UserSession.class);
 		return true;
 	}
 	/**

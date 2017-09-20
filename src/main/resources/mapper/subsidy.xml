@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.worldwalker.onecard.weixin.dao.SubsidyDao">
+
+	<resultMap id="subsidyResultMap" type="cn.worldwalker.onecard.weixin.domain.SubsidyModel" >
+		<id column="id" property="id"/>
+		<result column="id_num" property="id_num"/>
+		<result column="f_name" property="fName"/>
+		<result column="en_name" property="enName"/>
+		<result column="gr_name" property="grName"/>
+		<result column="pro_name" property="proName"/>
+		<result column="grant_date" property="grantDate"/>
+		<result column="bank_status" property="bankStatus"/>
+	</resultMap>
+	
+	<select id="selectSubsidys"  parameterType ="cn.worldwalker.onecard.weixin.domain.SubsidyModel" resultMap="subsidyResultMap">
+	    select id_num, f_name, en_name,gr_name,pro_name ,bank_status ,grant_date  from cfs_grant_360731
+	    where id_num = #{idNum} and  grant_date > #{startTime} and grant_date > #{endTime}
+	    limit #{start},#{limit}
+	</select>
+	
+</mapper>
+
+

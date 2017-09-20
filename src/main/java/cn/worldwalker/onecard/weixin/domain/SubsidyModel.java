@@ -1,28 +1,16 @@
 package cn.worldwalker.onecard.weixin.domain;
 
-import java.io.Serializable;
+import java.util.Date;
 
-public class UserSession implements Serializable{
-	private static final long serialVersionUID = 7478917352637885504L;
-	private String openId;
-	private String mobilePhone;
+public class SubsidyModel extends BaseModel{
 	private String idNum;
 	private String fName;
 	private String enName;
 	private String grName;
+	private String proName;
+	private Date grantDate;
+	private Integer bankStatus;
 	
-	public String getOpenId() {
-		return openId;
-	}
-	public void setOpenId(String openId) {
-		this.openId = openId;
-	}
-	public String getMobilePhone() {
-		return mobilePhone;
-	}
-	public void setMobilePhone(String mobilePhone) {
-		this.mobilePhone = mobilePhone;
-	}
 	public String getIdNum() {
 		return idNum;
 	}
@@ -47,8 +35,23 @@ public class UserSession implements Serializable{
 	public void setGrName(String grName) {
 		this.grName = grName;
 	}
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public String getProName() {
+		return proName;
+	}
+	public void setProName(String proName) {
+		this.proName = proName;
+	}
+	public Date getGrantDate() {
+		return grantDate;
+	}
+	public void setGrantDate(Date grantDate) {
+		this.grantDate = grantDate;
+	}
+	public Integer getBankStatus() {
+		return bankStatus;
+	}
+	public void setBankStatus(Integer bankStatus) {
+		this.bankStatus = bankStatus;
 	}
 	
 }

@@ -22,9 +22,9 @@
 </head>
 <body>
     <div class="feed_box">
-        <h2>建议内容：分红什么时间发放<b class="f_green">已处理</b></h2>
-        <p>回复内回复内容回复内回复内容</p>
-        <h3><span>提交时间：2017-08-09</span><label class="fr">回复时间：2017-08-09</label></h3>
+        <h2>建议内容：${model.content}<b class="f_green"><#if model.status==0> 未处理<#else> 已处理</#if></b></h2>
+        <p>${model.replyContent}</p>
+        <h3><span>提交时间：${model.createTime?string('yyyy-MM-dd HH:mm:ss')}</span><label class="fr">回复时间：<#if model.status==0> 无 <#else> ${model.updateTime}</#if></label></h3>
     </div>
 </body>
 </html>

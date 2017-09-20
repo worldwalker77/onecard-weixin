@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.worldwalker.onecard.weixin.dao.FeedbackDao">
+
+	<resultMap id="feedbackResultMap" type="cn.worldwalker.onecard.weixin.domain.FeedBackModel" >
+		<id column="id" property="id"/>
+		<result column="title" property="title"/>
+		<result column="content" property="content"/>
+		<result column="tel" property="tel"/>
+		<result column="f_name" property="fName"/>
+		<result column="en_name" property="enName"/>
+		<result column="gr_name" property="grName"/>
+		<result column="open_id" property="openId"/>
+		<result column="status" property="status"/>
+		<result column="reply_content" property="openId"/>
+		<result column="create_time" property="createTime"/>
+		<result column="update_time" property="updateTime"/>
+	</resultMap>
+	
+	<select id="selectFeedbacks"  parameterType ="cn.worldwalker.onecard.weixin.domain.FeedBackModel" resultMap="feedbackResultMap">
+	    select id, title, content, create_time from cfs_suggest1 
+	    where open_id = #{openId} and title like CONCAT('%','${title}','%' ) 
+	    limit #{start},#{limit}
+	</select>
+	
+	<select id="selectFeedbackDetail"  parameterType ="Long" resultMap="feedbackResultMap">
+	    select content,status, reply_content, create_time, update_time from cfs_suggest1 
+	    where id = #{id}
+	</select>
+	
+	<insert id="insertFeedback" parameterType="cn.worldwalker.onecard.weixin.domain.FeedBackModel">  
+	     <selectKey keyProperty="id" resultType="Long">  
+	         select LAST_INSERT_ID()  
+	     </selectKey>  
+	     insert into cfs_suggest1( 
+	     					title, 
+	     					content, 
+	     					tel, 
+	     					f_name,
+	     					en_name, 
+	     					gr_name,
+	     					open_id, 
+	     					create_time,
+	     					update_time
+	     				   ) 
+	     			values( 
+	     					#{title}, 
+	     					#{content}, 
+	     					#{tel}, 
+	     					#{fName},
+	     					#{enName}, 
+	     					#{grName},
+	     					#{openId}, 
+	     					now(),
+	     					now()
+	     				  )    
+    </insert>  
+
+</mapper>
+
+

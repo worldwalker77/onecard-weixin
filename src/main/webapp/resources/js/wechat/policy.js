@@ -44,10 +44,15 @@ $(function(){
 	                success: function(res){
 	                	pageNum++;
 	                    var list = res.data;
+	                    if (list == null) {
+	                    	isEnd = true;
+	                    	$("#scroll-end").css('display','block'); 
+	                    	return;
+						}
 	                    var len = list.length;
 	                    var items = '';
 	                    for(var i =0;i<len;i++){
-	                    	var liItem = "<li><p><a href='#'>关于土地承包责任制分红的若干意见</a></p><span>2017/08/08</span></li>";
+	                    	var liItem = "<li><p><a href='#'>" + list[i].title +"</a></p><span>" + list[i].createTime +"</span></li>";
 	                    	items += liItem;
 	                    }
 	                    $(".news_list").append(items);

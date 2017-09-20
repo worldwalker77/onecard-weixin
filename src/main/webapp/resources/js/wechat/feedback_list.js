@@ -29,19 +29,30 @@ $(function(){
 		 queryFeedbacks:function(){
 			 $.ajax({
 	                type: 'GET',
-	                url: "/onecard/queryFeedbackList",
+	                url: "/onecard/queryFeedbackList?pageNum=" + pageNum + "&pageSize=" + pageSize,
 	                dataType: 'json',
 	                success: function(res){
 	                	pageNum++;
 	                    var list = res.data;
+	                    if (list == null) {
+	                    	isEnd = true;
+	                    	$("#scroll-end").css('display','block'); 
+	                    	return;
+						}
 	                    var len = list.length;
 	                    var items = '';
 	                    for(var i =0;i<len;i++){
-	                    	var liItem = "<li><a href='feed.html'>" +
-			                    			"<h2>建议内容：分红什么时间发放<i class='right_icon'></i></h2>" +
-			                    			"<p>提交时间：2017-08-08</p>" +
-			                    			"<p>状态：<span class='f_green'>已处理</span></p>" +
-			                    			"<p>回复时间：2017-08-09</p>" +
+	                    	var statusShow = '未处理';
+	                    	var replyTime = '无';
+	                    	if (list[i].status == 1) {
+	                    		statusShow = '已处理';
+	                    		replyTime = list[i].updateTime;
+							}
+	                    	var liItem = "<li><a href='/onecard/feedbackDetail?id="+ list[i].id + "'>" +
+			                    			"<h2>建议内容：" +list[i].title + "<i class='right_icon'></i></h2>" +
+			                    			"<p>提交时间：" +list[i].createTime + "</p>" +
+			                    			"<p>状态：<span class='f_green'>" + statusShow + "</span></p>" +
+			                    			"<p>回复时间：" + replyTime + "</p>" +
 		                    			 "</a></li>";
 	                    	items += liItem;
 	                    }

@@ -1,5 +1,6 @@
 package cn.worldwalker.onecard.weixin.service;
 
+import cn.worldwalker.onecard.weixin.domain.FeedBackModel;
 import cn.worldwalker.onecard.weixin.domain.QueryModel;
 import cn.worldwalker.onecard.weixin.domain.Result;
 import cn.worldwalker.onecard.weixin.domain.WxBindModel;
@@ -12,9 +13,14 @@ public interface OneCardService{
 	
 	public String getOpenIdFromWeiXin(String code);
 	
-	public Result queryPolicyList(QueryModel queryModel);
+	public Result queryPolicyList(Integer pageSize, Integer pageNum, String title);
 	
-	public Result queryFeedbacks();
+	public Result addFeedback(FeedBackModel model);
 	
-    public Result queryPolicyList();
+	public Result queryFeedbacks(Integer pageSize, Integer pageNum);
+	
+	public FeedBackModel queryFeedbackDetail(Long id);
+	
+	public Result querySubsidys(Integer pageSize, Integer pageNum, String startTime, String endTime);
+	
 }
