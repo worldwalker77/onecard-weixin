@@ -11,13 +11,14 @@ import org.springframework.stereotype.Service;
 import cn.worldwalker.onecard.weixin.common.exception.BusinessException;
 import cn.worldwalker.onecard.weixin.common.exception.ExceptionEnum;
 import cn.worldwalker.onecard.weixin.common.utils.RequestUtil;
+import cn.worldwalker.onecard.weixin.dao.ContactInfoDao;
 import cn.worldwalker.onecard.weixin.dao.FeedbackDao;
 import cn.worldwalker.onecard.weixin.dao.PolicyDao;
 import cn.worldwalker.onecard.weixin.dao.SubsidyDao;
 import cn.worldwalker.onecard.weixin.dao.WxBindDao;
+import cn.worldwalker.onecard.weixin.domain.ContactInfoModel;
 import cn.worldwalker.onecard.weixin.domain.FeedBackModel;
 import cn.worldwalker.onecard.weixin.domain.PolicyModel;
-import cn.worldwalker.onecard.weixin.domain.QueryModel;
 import cn.worldwalker.onecard.weixin.domain.Result;
 import cn.worldwalker.onecard.weixin.domain.SubsidyModel;
 import cn.worldwalker.onecard.weixin.domain.UserSession;
@@ -37,7 +38,8 @@ public class OneCardServiceImpl implements OneCardService{
 	private FeedbackDao feedbackDao;
 	@Autowired
 	private SubsidyDao subsidyDao;
-	
+	@Autowired
+	private ContactInfoDao contactInfoDao;
 	/**
 	 * 绑定
 	 * @param idNum
@@ -51,6 +53,10 @@ public class OneCardServiceImpl implements OneCardService{
 		if (StringUtils.isBlank(openId) || StringUtils.isBlank(idNum)|| StringUtils.isBlank(mobilePhone)) {
 			throw new BusinessException(ExceptionEnum.PARAMS_ERROR);
 		}
+		ContactInfoModel cim = contactInfoDao.selectContactInfoByIdNum(idNum);
+		if (cim == null) {
+			throw new BusinessException(ExceptionEnum.ID_NUM_NOT_EXIST);
+		}
 		WxBindModel model = new WxBindModel();
 		model.setOpenId(openId);
 		model.setIdNum(idNum);
@@ -59,8 +65,11 @@ public class OneCardServiceImpl implements OneCardService{
 		
 		UserSession userSession = new UserSession();
 		userSession.setIdNum(idNum);
-		userSession.setMobilePhone(mobilePhone);
+		userSession.setMobilePhone(cim.getTel());
 		userSession.setOpenId(openId);
+		userSession.setfName(cim.getfName());
+		userSession.setEnName(cim.getEnName());
+		userSession.setGrName(cim.getGrName());
 		RequestUtil.setUserSession(userSession);
 		Result result = new Result();
 		return result;
