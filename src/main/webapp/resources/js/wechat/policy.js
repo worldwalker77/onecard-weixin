@@ -15,6 +15,8 @@ $(function(){
 			 $("#news_query").click(function(){
 				 $("#content").html('<ul class="news_list"></ul>');
 				 pageNum = 0; 
+				 isEnd = false;
+				 $("#scroll-end").css('display','none');
 				 newsUtil.queryNews();
 			 });
 			 

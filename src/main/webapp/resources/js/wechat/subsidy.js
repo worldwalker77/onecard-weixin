@@ -15,6 +15,8 @@ $(function(){
 			 $("#subsidy-query-btn").click(function(){
 				 $(".subsidy_result").html('<ul class="subsidy_list"></ul>');
 				 pageNum = 0; 
+				 isEnd = false;
+				 $("#scroll-end").css('display','none');
 				 subsibyUtil.querySubsidys();
 			 });
 			 

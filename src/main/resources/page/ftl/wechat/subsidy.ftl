@@ -19,6 +19,7 @@
     <title>补贴查询</title>
     <link href="/resources/css/wechat/mobiscroll-2.13.2.full.min.css" rel="stylesheet" />
     <link href="/resources/css/wechat/css_style.css" rel="stylesheet" />
+    
     <script src="/resources/js/jquery/jquery.min.js"></script>
     <script src="/resources/js/utils/mobiscroll-2.13.2.full.min.js"></script>
 </head>
