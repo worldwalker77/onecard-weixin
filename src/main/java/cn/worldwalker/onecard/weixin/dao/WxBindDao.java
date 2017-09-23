@@ -7,4 +7,6 @@ public interface WxBindDao {
 	public Integer insertWxBind(WxBindModel model);
 	
 	public WxBindModel selectWxBind(WxBindModel model);
+	
+	public Integer updateWxBindIdNum(WxBindModel model);
 }

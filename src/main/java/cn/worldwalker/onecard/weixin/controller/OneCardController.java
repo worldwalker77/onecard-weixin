@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.worldwalker.onecard.weixin.common.exception.BusinessException;
 import cn.worldwalker.onecard.weixin.common.exception.ExceptionEnum;
 import cn.worldwalker.onecard.weixin.common.utils.JsonUtil;
 import cn.worldwalker.onecard.weixin.domain.FeedBackModel;
+import cn.worldwalker.onecard.weixin.domain.ModifyParam;
 import cn.worldwalker.onecard.weixin.domain.Result;
 import cn.worldwalker.onecard.weixin.service.OneCardService;
 
@@ -123,6 +125,41 @@ public class OneCardController {
 			result.setDesc(ExceptionEnum.SYSTEM_ERROR.desc);
 		}
 		return result;
+	}
+	
+	@RequestMapping(value="/modifyIdNum")
+	public ModelAndView modifyIdNum(){
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("wechat/modify_id_num");
+		return mv;
+	}
+	
+	@RequestMapping(value="/doModifyIdNum")
+	@ResponseBody
+	public Result doModifyIdNum(@RequestBody ModifyParam param){
+		
+		Result result = null;
+		try {
+			result = oneCardService.modifyIdNum(param);
+		} catch (BusinessException e) {
+			log.error(e.desc, e);
+			result = new Result();
+			result.setCode(e.code);
+			result.setDesc(e.desc);
+		} catch (Exception e) {
+			log.error("querySubsidys异常", e);
+			result = new Result();
+			result.setCode(ExceptionEnum.SYSTEM_ERROR.code);
+			result.setDesc(ExceptionEnum.SYSTEM_ERROR.desc);
+		}
+		return result;
+	}
+	
+	@RequestMapping(value="/modifySuccess")
+	public ModelAndView modifySuccess(){
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("wechat/modify_success");
+		return mv;
 	}
 	
 }

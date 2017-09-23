@@ -5,4 +5,6 @@ import cn.worldwalker.onecard.weixin.domain.ContactInfoModel;
 public interface ContactInfoDao {
 	
 	public ContactInfoModel selectContactInfoByIdNum(String idNum);
+	
+	public Integer updateContactInfoById(ContactInfoModel model);
 }

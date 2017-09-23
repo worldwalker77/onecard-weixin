@@ -27,6 +27,12 @@
 	    limit #{start},#{limit}
 	</select>
 	
+	<update id="updateIdNum"  parameterType = "map">
+		update cfs_grant_360731 
+		set id_no = #{newIdNum}
+		where id_no = #{oldIdNum}
+	</update>
+	
 </mapper>
 
 

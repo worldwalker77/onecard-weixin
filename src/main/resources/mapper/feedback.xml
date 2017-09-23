@@ -20,14 +20,14 @@
 	</resultMap>
 	
 	<select id="selectFeedbacks"  parameterType ="cn.worldwalker.onecard.weixin.domain.FeedBackModel" resultMap="feedbackResultMap">
-	    select id, title, content, create_time from cfs_suggest1 
+	    select id, title, content, create_time from cfs_suggest
 	    where open_id = #{openId} and title like CONCAT('%','${title}','%' ) 
 	    order by create_time desc
 	    limit #{start},#{limit}
 	</select>
 	
 	<select id="selectFeedbackDetail"  parameterType ="Long" resultMap="feedbackResultMap">
-	    select content,status, reply_content, create_time, update_time from cfs_suggest1 
+	    select content,status, reply_content, create_time, update_time from cfs_suggest 
 	    where id = #{id}
 	</select>
 	
@@ -35,7 +35,7 @@
 	     <selectKey keyProperty="id" resultType="Long">  
 	         select LAST_INSERT_ID()  
 	     </selectKey>  
-	     insert into cfs_suggest1( 
+	     insert into cfs_suggest( 
 	     					title, 
 	     					content, 
 	     					tel, 

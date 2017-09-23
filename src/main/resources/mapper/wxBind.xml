@@ -43,6 +43,12 @@
 	     					now()
 	     				  )    
     </insert>  
+    
+    <update id="updateWxBindIdNum"  parameterType = "cn.worldwalker.onecard.weixin.domain.WxBindModel">
+		update cfs_wx_bind 
+		set id_num = #{idNum}, mobile_phone = #{mobilePhone},update_time=now()
+		where open_id = #{openId}
+	</update>
 
 </mapper>
 

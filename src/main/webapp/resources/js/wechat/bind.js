@@ -4,6 +4,9 @@
 
 var bindUtil = {
 		bindClickEvent:function(){
+			$("#cancel").click(function(){
+				window.location.reload();
+			});
 			$('#save').click(function() {
 				var idNum = $("#idNum").val();
 				if (bindUtil.validateIdCard(idNum) == false) {
@@ -25,7 +28,11 @@ var bindUtil = {
 			        	if (data.code != 0) {
 			        		alert(data.desc);
 						}else{
-							window.location.replace($('#redirectUrl').val());
+							if ($('#redirectUrl').val() == '') {
+								alert("绑定成功");
+							}else{
+								window.location.replace($('#redirectUrl').val());
+							}
 						}
 			        },
 			        complete: function () {

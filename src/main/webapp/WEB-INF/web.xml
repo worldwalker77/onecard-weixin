@@ -64,6 +64,6 @@
   	</filter-mapping>
   <!-- 设置Session的有效时间:以分钟为单位-->
   <session-config>
-      <session-timeout>15</session-timeout>
+      <session-timeout>30</session-timeout>
   </session-config>
 </web-app>

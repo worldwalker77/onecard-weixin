@@ -53,7 +53,7 @@ public class LoginInterceptor  extends HandlerInterceptorAdapter {
 			userSession.setIdNum(wxModel.getIdNum());
 			userSession.setOpenId(openId);
 			/**从contactInfo表里面根据身份证号获取其他的信息，放入session中，方便后面的功能使用*/
-			ContactInfoModel cim = contactInfoDao.selectContactInfoByIdNum(wxModel.getIdNum());
+			ContactInfoModel cim = oneCardService.getContactInfoByIdNum(wxModel.getIdNum());
 			if (cim != null) {
 				userSession.setMobilePhone(cim.getTel());
 				userSession.setfName(cim.getfName());

@@ -35,7 +35,7 @@
 
 	
     <aop:config>
-	    <aop:pointcut id="bussinessService" expression="execution(public * cn.worldwalker.game..*.service.*.*(..))" />
+	    <aop:pointcut id="bussinessService" expression="execution(public * cn.worldwalker.onecard..*.manager.*.*(..))" />
 	    <aop:advisor pointcut-ref="bussinessService" advice-ref="transactionAdvice" />
     </aop:config>
     

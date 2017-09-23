@@ -37,13 +37,16 @@
         </table>
         <div class="op_box">
             <input id="save" type="submit" value="确定" class="submit_btn" onclick="save();" />
-            <input id="cancel" type="reset" value="取消" class="cancel_btn" />
+            <input id="cancel" type="reset" value="取消" class="cancel_btn" onclick="cancel();" />
         </div>
     </div>
 </body>
 </html>
 <script type="text/javascript">
     var falg = true;
+    function cancel(){
+    	window.location.reload();
+    }
     function save() {
         $(".input_txt[required='required']").each(function (i, n) {
             if ($(this).val().length == 0) {

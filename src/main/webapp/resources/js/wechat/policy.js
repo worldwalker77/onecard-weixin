@@ -54,7 +54,7 @@ $(function(){
 	                    var len = list.length;
 	                    var items = '';
 	                    for(var i =0;i<len;i++){
-	                    	var liItem = "<li><p><a href='#'>" + list[i].title +"</a></p><span>" + list[i].createTime +"</span></li>";
+	                    	var liItem = "<li><p><a href='" + list[i].content +"'>" + list[i].title +"</a></p><span>" + list[i].createTime +"</span></li>";
 	                    	items += liItem;
 	                    }
 	                    $(".news_list").append(items);

@@ -18,11 +18,13 @@ import cn.worldwalker.onecard.weixin.dao.SubsidyDao;
 import cn.worldwalker.onecard.weixin.dao.WxBindDao;
 import cn.worldwalker.onecard.weixin.domain.ContactInfoModel;
 import cn.worldwalker.onecard.weixin.domain.FeedBackModel;
+import cn.worldwalker.onecard.weixin.domain.ModifyParam;
 import cn.worldwalker.onecard.weixin.domain.PolicyModel;
 import cn.worldwalker.onecard.weixin.domain.Result;
 import cn.worldwalker.onecard.weixin.domain.SubsidyModel;
 import cn.worldwalker.onecard.weixin.domain.UserSession;
 import cn.worldwalker.onecard.weixin.domain.WxBindModel;
+import cn.worldwalker.onecard.weixin.manager.OneCardManager;
 import cn.worldwalker.onecard.weixin.rpc.WeiXinRpc;
 
 @Service
@@ -40,6 +42,8 @@ public class OneCardServiceImpl implements OneCardService{
 	private SubsidyDao subsidyDao;
 	@Autowired
 	private ContactInfoDao contactInfoDao;
+	@Autowired
+	private OneCardManager oneCardManager;
 	/**
 	 * 绑定
 	 * @param idNum
@@ -203,6 +207,31 @@ public class OneCardServiceImpl implements OneCardService{
 		Result result = new Result();
 		result.setData(list);
 		return result;
+	}
+
+	@Override
+	public ContactInfoModel getContactInfoByIdNum(String idNum) {
+		return contactInfoDao.selectContactInfoByIdNum(idNum);
+	}
+
+	@Override
+	public Result modifyIdNum(ModifyParam param) {
+		if (param == null 
+		    || StringUtils.isBlank(param.getOldIdNum()) 
+		    || StringUtils.isBlank(param.getOldTel()) 
+		    || StringUtils.isBlank(param.getNewIdNum()) 
+		    || StringUtils.isBlank(param.getNewTel())) {
+			throw new BusinessException(ExceptionEnum.PARAMS_ERROR);
+		}
+		/**校验老身份证和手机号是否正确*/
+		ContactInfoModel seModel = contactInfoDao.selectContactInfoByIdNum(param.getOldIdNum());
+		if (seModel == null) {
+			throw new BusinessException(ExceptionEnum.ID_NUM_NOT_EXIST);
+		}
+		if (!param.getOldTel().equals(seModel.getTel())) {
+			throw new BusinessException(ExceptionEnum.TEL_NOT_MATCH);
+		}
+		return oneCardManager.modifyIdNum(seModel.getId(), param.getOldIdNum(), param.getNewIdNum(), param.getNewTel());
 	}
 
 

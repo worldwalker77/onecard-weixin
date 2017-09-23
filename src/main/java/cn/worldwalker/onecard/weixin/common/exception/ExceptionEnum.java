@@ -6,7 +6,9 @@ public enum ExceptionEnum {
     SUCCESS(0, "成功"),
     NEED_LOGIN(1, "需要登录"),
     PARAMS_ERROR(2, "参数为空或者错误"),
-    ID_NUM_NOT_EXIST(3, "系统中没有此身份证号");
+    ID_NUM_NOT_EXIST(3, "系统中没有此身份证号"),
+    TEL_NOT_MATCH(4, "手机号和系统中的手机号不符"),
+    MODIFY_FAIL(5, "修改身份证失败");
 
     public int  code;
     public String desc;

@@ -18,6 +18,12 @@
 	    where id_no = #{idNum}
 	</select>
 	
+	<update id="updateContactInfoById"  parameterType = "cn.worldwalker.onecard.weixin.domain.ContactInfoModel">
+		update cfs_contact_info 
+		set id_no = #{idNum}, tel = #{tel}
+		where id = #{id}
+	</update>
+	
 </mapper>
 
 

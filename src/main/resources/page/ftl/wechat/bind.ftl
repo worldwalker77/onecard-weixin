@@ -21,7 +21,7 @@
     <script src="/resources/js/jquery/jquery.min.js"></script>
 </head>
 <body>
-	<input id="redirectUrl" type="hidden" value="${redirectUrl}" />
+	<input id="redirectUrl" type="hidden" value="${redirectUrl!''}" />
     <div class="form_header">请绑定个人身份证号码及手机号码，方便一卡通补贴数据及时推送和查询</div>
     <div class="form_box">
         <table cellpadding="0" cellspacing="0" class="form_table">
