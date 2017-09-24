@@ -12,7 +12,7 @@
 	</resultMap>
 	
 	<select id="selectPolicyByTitle"  parameterType ="cn.worldwalker.onecard.weixin.domain.PolicyModel" resultMap="policyResultMap">
-	    select title, content, create_time from cfs_policy 
+	    select id, title, content, create_time from cfs_policy 
 	    where title like CONCAT('%','${title}','%' ) 
 	    limit #{start},#{limit}
 	</select>

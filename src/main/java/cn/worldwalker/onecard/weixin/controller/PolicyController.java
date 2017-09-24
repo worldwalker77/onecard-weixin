@@ -1,5 +1,7 @@
 package cn.worldwalker.onecard.weixin.controller;
 
+import net.sf.json.JSONObject;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.worldwalker.onecard.weixin.common.exception.ExceptionEnum;
+import cn.worldwalker.onecard.weixin.common.utils.httpclient.HttpClientUtils;
 import cn.worldwalker.onecard.weixin.domain.Result;
 import cn.worldwalker.onecard.weixin.service.OneCardService;
 
@@ -51,6 +54,30 @@ public class PolicyController {
 			result.setDesc(ExceptionEnum.SYSTEM_ERROR.desc);
 		}
 		return result;
+	}
+	
+	
+	/**
+	 * 政策法规展示页
+	 * @return
+	 */
+	@RequestMapping(value="/policyDetail")
+	public ModelAndView policyDetail(Long id, String createTime, String title){
+		ModelAndView mv = new ModelAndView();
+		JSONObject ob = null;
+		try {
+			String str = HttpClientUtils.get("http://120.77.81.7:8088/sms/api/v1/policy/getContent.htm?id=" + id);
+			ob = JSONObject.fromObject(str);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (ob != null) {
+			mv.addObject("content", ob.getString("data"));
+		}
+		mv.addObject("createTime", createTime);
+		mv.addObject("title", title);
+		mv.setViewName("wechat/policy_detail");
+		return mv;
 	}
 	
 }

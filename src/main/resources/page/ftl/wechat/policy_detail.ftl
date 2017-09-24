@@ -16,14 +16,19 @@
     <!-- Add to homescreen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <title>session过期</title>
+    <title>政策法规详情</title>
     <link href="/resources/css/wechat/css_style.css" rel="stylesheet" />
     <script src="/resources/js/jquery/jquery.min.js"></script>
 </head>
 <body>
     <div class="feed_box">
-        <h2 style="text-align:center">用户session过期，退出重新进入！</h2>
+        <h2 style="text-align:center">${title}</h2>
+        <p>${content}</p>
+        <h3><span>提交时间：${createTime}</span></h3>
     </div>
     
 </body>
 </html>
+<script type="text/javascript">
+
+</script>
