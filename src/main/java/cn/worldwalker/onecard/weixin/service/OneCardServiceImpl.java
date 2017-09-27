@@ -58,9 +58,9 @@ public class OneCardServiceImpl implements OneCardService{
 			throw new BusinessException(ExceptionEnum.PARAMS_ERROR);
 		}
 		ContactInfoModel cim = contactInfoDao.selectContactInfoByIdNum(idNum);
-		if (cim == null) {
-			throw new BusinessException(ExceptionEnum.ID_NUM_NOT_EXIST);
-		}
+//		if (cim == null) {
+//			throw new BusinessException(ExceptionEnum.ID_NUM_NOT_EXIST);
+//		}
 		WxBindModel model = new WxBindModel();
 		model.setOpenId(openId);
 		model.setIdNum(idNum);
@@ -69,11 +69,13 @@ public class OneCardServiceImpl implements OneCardService{
 		
 		UserSession userSession = new UserSession();
 		userSession.setIdNum(idNum);
-		userSession.setMobilePhone(cim.getTel());
+		userSession.setMobilePhone(mobilePhone);
 		userSession.setOpenId(openId);
-		userSession.setfName(cim.getfName());
-		userSession.setEnName(cim.getEnName());
-		userSession.setGrName(cim.getGrName());
+		if (cim != null) {
+			userSession.setfName(cim.getfName());
+			userSession.setEnName(cim.getEnName());
+			userSession.setGrName(cim.getGrName());
+		}
 		RequestUtil.setUserSession(userSession);
 		Result result = new Result();
 		return result;
@@ -224,14 +226,14 @@ public class OneCardServiceImpl implements OneCardService{
 			throw new BusinessException(ExceptionEnum.PARAMS_ERROR);
 		}
 		/**校验老身份证和手机号是否正确*/
-		ContactInfoModel seModel = contactInfoDao.selectContactInfoByIdNum(param.getOldIdNum());
-		if (seModel == null) {
-			throw new BusinessException(ExceptionEnum.ID_NUM_NOT_EXIST);
-		}
-		if (!param.getOldTel().equals(seModel.getTel())) {
-			throw new BusinessException(ExceptionEnum.TEL_NOT_MATCH);
-		}
-		return oneCardManager.modifyIdNum(seModel.getId(), param.getOldIdNum(), param.getNewIdNum(), param.getNewTel());
+//		ContactInfoModel seModel = contactInfoDao.selectContactInfoByIdNum(param.getOldIdNum());
+//		if (seModel == null) {
+//			throw new BusinessException(ExceptionEnum.ID_NUM_NOT_EXIST);
+//		}
+//		if (!param.getOldTel().equals(seModel.getTel())) {
+//			throw new BusinessException(ExceptionEnum.TEL_NOT_MATCH);
+//		}
+		return oneCardManager.modifyIdNum(param.getOldIdNum(), param.getOldTel(), param.getNewIdNum(), param.getNewTel());
 	}
 
 

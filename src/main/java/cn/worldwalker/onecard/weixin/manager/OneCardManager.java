@@ -4,5 +4,5 @@ import cn.worldwalker.onecard.weixin.domain.Result;
 
 
 public interface OneCardManager {
-	public Result modifyIdNum(Long contactId, String oldIdNum, String newIdNum, String newTel);
+	public Result modifyIdNum(String oldIdNum, String oldTel, String newIdNum, String newTel);
 }

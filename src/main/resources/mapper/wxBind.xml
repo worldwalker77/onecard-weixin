@@ -9,12 +9,13 @@
 		<result column="id_num" property="idNum"/>
 		<result column="open_id" property="openId"/>
 		<result column="mobile_phone" property="mobilePhone"/>
+		<result column="mobile_phone" property="mobilePhone"/>
 		<result column="create_time" property="createTime"/>
 		<result column="update_time" property="updateTime"/>
 	</resultMap>
 	
 	<select id="selectWxBind"  parameterType ="cn.worldwalker.onecard.weixin.domain.WxBindModel" resultMap="wxBindResultMap">
-	    select id_num, open_id from cfs_wx_bind 
+	    select id_num,mobile_phone, open_id from cfs_wx_bind 
 	    where 1=1 
 	    <if test="idNum != null">
 	    	and id_num = #{idNum}

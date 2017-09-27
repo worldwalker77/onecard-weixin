@@ -1,7 +1,5 @@
 package cn.worldwalker.onecard.weixin.manager;
 
-import java.util.HashMap;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -11,8 +9,8 @@ import cn.worldwalker.onecard.weixin.common.utils.RequestUtil;
 import cn.worldwalker.onecard.weixin.dao.ContactInfoDao;
 import cn.worldwalker.onecard.weixin.dao.SubsidyDao;
 import cn.worldwalker.onecard.weixin.dao.WxBindDao;
-import cn.worldwalker.onecard.weixin.domain.ContactInfoModel;
 import cn.worldwalker.onecard.weixin.domain.Result;
+import cn.worldwalker.onecard.weixin.domain.UserSession;
 import cn.worldwalker.onecard.weixin.domain.WxBindModel;
 
 /**一卡通更新事务控制类*/
@@ -27,28 +25,41 @@ public class OneCardManagerImpl implements OneCardManager{
 	private SubsidyDao subsidyDao;
 
 	@Override
-	public Result modifyIdNum(Long contactId, String oldIdNum, String newIdNum, String newTel) {
-		/**修改*/
-		ContactInfoModel updateModel = new ContactInfoModel();
-		updateModel.setId(contactId);
-		updateModel.setIdNum(newIdNum);
-		updateModel.setTel(newTel);
-		Integer res = contactInfoDao.updateContactInfoById(updateModel);
-		if(res < 1){
-			throw new BusinessException(ExceptionEnum.MODIFY_FAIL);
-		}
+	public Result modifyIdNum(String oldIdNum, String oldTel, String newIdNum, String newTel) {
+//		ContactInfoModel updateModel = new ContactInfoModel();
+//		updateModel.setId(contactId);
+//		updateModel.setIdNum(newIdNum);
+//		updateModel.setTel(newTel);
+//		Integer res = contactInfoDao.updateContactInfoById(updateModel);
+//		if(res < 1){
+//			throw new BusinessException(ExceptionEnum.MODIFY_FAIL);
+//		}
 		WxBindModel wxModel = new WxBindModel();
 		wxModel.setOpenId(RequestUtil.getOpenIdFromSession());
+		WxBindModel resModel = wxBindDao.selectWxBind(wxModel);
+		if (resModel == null) {
+			throw new BusinessException(ExceptionEnum.NOT_BIND);
+		}
+		if (!resModel.getIdNum().equals(oldIdNum)) {
+			throw new BusinessException(ExceptionEnum.ID_NUM_NOT_MATCH);
+		}
+		if (!resModel.getMobilePhone().equals(oldTel)) {
+			throw new BusinessException(ExceptionEnum.TEL_NOT_MATCH);
+		}
 		wxModel.setIdNum(newIdNum);
 		wxModel.setMobilePhone(newTel);
-		res = wxBindDao.updateWxBindIdNum(wxModel);
+		Integer res = wxBindDao.updateWxBindIdNum(wxModel);
 		if(res < 1){
 			throw new BusinessException(ExceptionEnum.MODIFY_FAIL);
 		}
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("oldIdNum", oldIdNum);
-		map.put("newIdNum", newIdNum);
-		subsidyDao.updateIdNum(map);
+		UserSession userSession = RequestUtil.getUserSession();
+		userSession.setIdNum(newIdNum);
+		userSession.setMobilePhone(newTel);
+		RequestUtil.setUserSession(userSession);
+//		HashMap<String, String> map = new HashMap<String, String>();
+//		map.put("oldIdNum", oldIdNum);
+//		map.put("newIdNum", newIdNum);
+//		subsidyDao.updateIdNum(map);
 		return new Result();
 	}
 	
