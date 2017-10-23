@@ -14,11 +14,78 @@
 		<result column="grant_date" property="grantDate"/>
 		<result column="bank_status" property="bankStatus"/>
 		<result column="pro_id" property="proId"/>
-		<result column="pro_id" property="proId"/>
+		<result column="rg_code" property="rgCode"/>
+		<result property="num1" column="num_1" />
+		<result property="num2" column="num_2" />
+		<result property="num3" column="num_3" />
+		<result property="num4" column="num_4" />
+		<result property="num5" column="num_5" />
+		<result property="num6" column="num_6" />
+		<result property="num7" column="num_7" />
+		<result property="num8" column="num_8" />
+		<result property="num9" column="num_9" />
+		<result property="num10" column="num_10" />
+		
+		<result property="num21" column="num2_1" />
+		<result property="num22" column="num2_2" />
+		<result property="num23" column="num2_3" />
+		<result property="num24" column="num2_4" />
+		<result property="num25" column="num2_5" />
+		<result property="num26" column="num2_6" />
+		<result property="num27" column="num2_7" />
+		<result property="num28" column="num2_8" />
+		<result property="num29" column="num2_9" />
+		<result property="num210" column="num2_10" />
+		<result property="num211" column="num2_11" />
+		<result property="num212" column="num2_12" />
+		<result property="num213" column="num2_13" />
+		<result property="num214" column="num2_14" />
+		<result property="num215" column="num2_15" />
+		<result property="num216" column="num2_16" />
+		<result property="num217" column="num2_17" />
+		<result property="num218" column="num2_18" />
+		<result property="num219" column="num2_19" />
+		<result property="num220" column="num2_20" />
+		<result property="num221" column="num2_21" />
+		<result property="num222" column="num2_22" />
+		<result property="num223" column="num2_23" />
+		<result property="num224" column="num2_24" />
+		<result property="num225" column="num2_25" />
+		<result property="num226" column="num2_26" />
+		<result property="num227" column="num2_27" />
+		<result property="num228" column="num2_28" />
+		<result property="num229" column="num2_29" />
+		<result property="num230" column="num2_30" />
+		
+		<result property="num31" column="num3_1" />
+		<result property="num32" column="num3_2" />
+		<result property="num33" column="num3_3" />
+		<result property="num34" column="num3_4" />
+		<result property="num35" column="num3_5" />
+		<result property="num36" column="num3_6" />
+		<result property="num37" column="num3_7" />
+		<result property="num38" column="num3_8" />
+		<result property="num39" column="num3_9" />
+		<result property="num310" column="num3_10" />
+		<result property="num311" column="num3_11" />
+		<result property="num312" column="num3_12" />
+		<result property="num313" column="num3_13" />
+		<result property="num314" column="num3_14" />
+		<result property="num315" column="num3_15" />
+		<result property="num316" column="num3_16" />
+		<result property="num317" column="num3_17" />
+		<result property="num318" column="num3_18" />
+		<result property="num319" column="num3_19" />
+		<result property="num320" column="num3_20" />
+		
+		<result property="num224" column="num2_24" />
 	</resultMap>
 	
 	<select id="selectSubsidys"  parameterType ="cn.worldwalker.onecard.weixin.domain.SubsidyModel" resultMap="subsidyResultMap">
-	    select id_no, f_name, en_name,gr_name,pro_name ,bank_status ,grant_date,pro_id  from cfs_grant_360731
+	    select id_no, f_name, en_name,gr_name,pro_name ,bank_status ,grant_date,pro_id,rg_code,
+	    num2_1,num2_2,num2_3,num2_4,num2_5,num2_6,num2_7,num2_8,num2_9,num2_10,num2_11,num2_12,num2_13,num2_17,num2_24
+	    
+	    from cfs_grant_360731
 	    where id_no = #{idNum}
 	    <if test="startTime != null">
 	    	and grant_date &gt; #{startTime}

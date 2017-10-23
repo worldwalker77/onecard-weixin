@@ -63,14 +63,14 @@ $(function(){
 				                    			"<p>姓名：" +list[i].fName + "</p>" +
 				                    			"<p>身份证号码：" +list[i].idNum + "</p>" +
 				                    			"<p>村组：" +list[i].grName + "</p>" +
-				                    			"<p>发放总金额：<span class='f_red'>不知道哪个字段</span></p>" +
+				                    			"<p>发放总金额：<span class='f_red'>" + list[i].total + "</span></p>" +
 			                    			"</div>" +
 			                    			"<div class='subsidy_txt'>" +
 				                    			"<p>项目名称：" +list[i].proName + "</p>" +
 				                    			"<p>发放时间：" +list[i].grantDate + "</p>" +
 				                    			"<p>发送状态：" + bankStatusShow + "</p>" +
-				                    			"<p>发放金额：<span class='f_red'>不知道哪个字段</span></p>" +
-				                    			"<p>发放明细：不知道哪个字段</p>" +
+				                    			"<p>发放金额：<span class='f_red'>" + list[i].total + "</span></p>" +
+				                    			"<p>发放明细：" + list[i].detail + "</p>" +
 			                    			"</div>" +
 		                    			"</li>";
 	                    	items += liItem;

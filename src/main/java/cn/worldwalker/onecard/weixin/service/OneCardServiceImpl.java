@@ -119,8 +119,8 @@ public class OneCardServiceImpl implements OneCardService{
 	 */
 	@Override
 	public String getOpenIdFromWeiXin(String code) {
-		return weiXinRpc.getOpenId(code);
-//		return "owOENwWf_yn3l0JXu-u8BYzoxOfw";
+//		return weiXinRpc.getOpenId(code);
+		return "owOENwaaII9RANdtNiIzyTa69_Rc";
 	}
 
 	/**
@@ -215,17 +215,16 @@ public class OneCardServiceImpl implements OneCardService{
 			model.setEndTime(endTime);
 		}
 		List<SubsidyModel> list = subsidyDao.selectSubsidys(model);
+		queryGrantsByType(list);
 		Result result = new Result();
 		result.setData(list);
 		return result;
 	}
 	
-public List<GrantView> queryGrantsByType(List<SubsidyModel> list,int pageIndex,int pageSize) {
+	private void queryGrantsByType(List<SubsidyModel> list) {
 		
 		ProjectDetail tmp;
 		StringBuilder sb;
-		GrantView view;
-		List<GrantView> views = new ArrayList<GrantView>();
 		for (SubsidyModel g : list) {
 			if (g.getRgCode() == null)
 				continue;
@@ -251,8 +250,8 @@ public List<GrantView> queryGrantsByType(List<SubsidyModel> list,int pageIndex,i
 
 					tmp = map.get(g.getRgCode() + g.getProId() + "num2_1");
 					if (tmp == null) {
-						tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode("num2_1",
-								g.getRgCode(), g.getProId());
+						tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode(new ProjectDetail("num2_1", g.getRgCode(), g.getProId())
+);
 						map.put(g.getRgCode() + g.getProId() + "num2_1", tmp);
 					}
 
@@ -282,8 +281,8 @@ public List<GrantView> queryGrantsByType(List<SubsidyModel> list,int pageIndex,i
 				if (g.getNum22() != null && g.getNum22().doubleValue() > 0.0d) {
 					tmp = map.get(g.getRgCode() + g.getProId() + "num2_2");
 					if (tmp == null) {
-						tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode("num2_2",
-								g.getRgCode(), g.getProId());
+						tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode(new ProjectDetail("num2_2", g.getRgCode(), g.getProId())
+);
 						map.put(g.getRgCode() + g.getProId() + "num2_2", tmp);
 					}
 
@@ -305,8 +304,7 @@ public List<GrantView> queryGrantsByType(List<SubsidyModel> list,int pageIndex,i
 				if (g.getNum23() != null && g.getNum23().doubleValue() > 0.0d) {
 					tmp = map.get(g.getRgCode() + g.getProId() + "num2_3");
 					if (tmp == null) {
-						tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode("num2_3",
-								g.getRgCode(), g.getProId());
+						tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode(new ProjectDetail("num2_3", g.getRgCode(), g.getProId()));
 						map.put(g.getRgCode() + g.getProId() + "num2_3", tmp);
 					}
 
@@ -326,8 +324,8 @@ public List<GrantView> queryGrantsByType(List<SubsidyModel> list,int pageIndex,i
 				if (g.getNum24() != null && g.getNum24().doubleValue() > 0.0d) {
 					tmp = map.get(g.getRgCode() + g.getProId() + "num2_4");
 					if (tmp == null) {
-						tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode("num2_4",
-								g.getRgCode(), g.getProId());
+						tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode(new ProjectDetail("num2_4", g.getRgCode(), g.getProId())
+);
 						map.put(g.getRgCode() + g.getProId() + "num2_4", tmp);
 					}
 
@@ -343,8 +341,8 @@ public List<GrantView> queryGrantsByType(List<SubsidyModel> list,int pageIndex,i
 				if (g.getNum25() != null && g.getNum25().doubleValue() > 0.0d) {
 					tmp = map.get(g.getRgCode() + g.getProId() + "num2_5");
 					if (tmp == null) {
-						tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode("num2_5",
-								g.getRgCode(), g.getProId());
+						tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode(new ProjectDetail("num2_5", g.getRgCode(), g.getProId())
+);
 						map.put(g.getRgCode() + g.getProId() + "num2_5", tmp);
 					}
 
@@ -361,8 +359,8 @@ public List<GrantView> queryGrantsByType(List<SubsidyModel> list,int pageIndex,i
 				if (g.getNum26() != null && g.getNum26().doubleValue() > 0.0d) {
 					tmp = map.get(g.getRgCode() + g.getProId() + "num2_6");
 					if (tmp == null) {
-						tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode("num2_6",
-								g.getRgCode(), g.getProId());
+						tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode(new ProjectDetail("num2_6", g.getRgCode(), g.getProId())
+);
 						map.put(g.getRgCode() + g.getProId() + "num2_6", tmp);
 					}
 
@@ -378,8 +376,8 @@ public List<GrantView> queryGrantsByType(List<SubsidyModel> list,int pageIndex,i
 				if (g.getNum27() != null && g.getNum27().doubleValue() > 0.0d) {
 					tmp = map.get(g.getRgCode() + g.getProId() + "num2_7");
 					if (tmp == null) {
-						tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode("num2_7",
-								g.getRgCode(), g.getProId());
+						tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode(new ProjectDetail("num2_7", g.getRgCode(), g.getProId())
+);
 						map.put(g.getRgCode() + g.getProId() + "num2_7", tmp);
 					}
 
@@ -396,8 +394,8 @@ public List<GrantView> queryGrantsByType(List<SubsidyModel> list,int pageIndex,i
 
 					tmp = map.get(g.getRgCode() + g.getProId() + "num2_8");
 					if (tmp == null) {
-						tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode("num2_8",
-								g.getRgCode(), g.getProId());
+						tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode(new ProjectDetail("num2_8", g.getRgCode(), g.getProId())
+);
 						map.put(g.getRgCode() + g.getProId() + "num2_8", tmp);
 					}
 
@@ -413,8 +411,8 @@ public List<GrantView> queryGrantsByType(List<SubsidyModel> list,int pageIndex,i
 
 					tmp = map.get(g.getRgCode() + g.getProId() + "num2_9");
 					if (tmp == null) {
-						tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode("num2_9",
-								g.getRgCode(), g.getProId());
+						tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode(new ProjectDetail("num2_9", g.getRgCode(), g.getProId())
+);
 						map.put(g.getRgCode() + g.getProId() + "num2_9", tmp);
 					}
 
@@ -430,8 +428,8 @@ public List<GrantView> queryGrantsByType(List<SubsidyModel> list,int pageIndex,i
 
 					tmp = map.get(g.getRgCode() + g.getProId() + "num2_10");
 					if (tmp == null) {
-						tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode(
-								"num2_10", g.getRgCode(), g.getProId());
+						tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode(new ProjectDetail("num2_10", g.getRgCode(), g.getProId())
+);
 						map.put(g.getRgCode() + g.getProId() + "num2_10", tmp);
 					}
 
@@ -447,8 +445,8 @@ public List<GrantView> queryGrantsByType(List<SubsidyModel> list,int pageIndex,i
 
 					tmp = map.get(g.getRgCode() + g.getProId() + "num2_11");
 					if (tmp == null) {
-						tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode(
-								"num2_11", g.getRgCode(), g.getProId());
+						tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode(new ProjectDetail("num2_11", g.getRgCode(), g.getProId())
+);
 						map.put(g.getRgCode() + g.getProId() + "num2_11", tmp);
 					}
 
@@ -464,8 +462,8 @@ public List<GrantView> queryGrantsByType(List<SubsidyModel> list,int pageIndex,i
 
 					tmp = map.get(g.getRgCode() + g.getProId() + "num2_12");
 					if (tmp == null) {
-						tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode(
-								"num2_12", g.getRgCode(), g.getProId());
+						tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode(new ProjectDetail("num2_12", g.getRgCode(), g.getProId())
+);
 						map.put(g.getRgCode() + g.getProId() + "num2_12", tmp);
 					}
 
@@ -478,8 +476,8 @@ public List<GrantView> queryGrantsByType(List<SubsidyModel> list,int pageIndex,i
 			}
 			if (pro_id.equalsIgnoreCase("16")) {
 				if (g.getNum213() != null && g.getNum213().doubleValue() > 0.0d) {
-					tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode("num2_13",
-							g.getRgCode(), g.getProId());
+					tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode(new ProjectDetail("num2_13", g.getRgCode(), g.getProId())
+);
 					if (tmp != null) {
 						g.setNum213Str(tmp.getDetailName() + ":"
 								+ g.getNum213());
@@ -493,8 +491,8 @@ public List<GrantView> queryGrantsByType(List<SubsidyModel> list,int pageIndex,i
 
 					tmp = map.get(g.getRgCode() + g.getProId() + "num2_17");
 					if (tmp == null) {
-						tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode(
-								"num2_17", g.getRgCode(), g.getProId());
+						tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode(new ProjectDetail("num2_17", g.getRgCode(), g.getProId())
+);
 						map.put(g.getRgCode() + g.getProId() + "num2_17", tmp);
 					}
 
@@ -511,35 +509,10 @@ public List<GrantView> queryGrantsByType(List<SubsidyModel> list,int pageIndex,i
 				details= sb.substring(0,sb.length()-1);
 			}
 
-			view = new GrantView();
-
-			view.setBankStatus(StringUtils.trimToEmpty(g.getBankStatus()));
-			view.setErrorInfo(StringUtils.trimToEmpty(g.getErrorInfo()));
-			view.setfName(StringUtils.trimToEmpty(g.getfName()));
-			view.setEnName(StringUtils.trimToEmpty(g.getEnName()));
-			view.setGrName(StringUtils.trimToEmpty(g.getGrName()));
-			view.setIdNo(StringUtils.trimToEmpty(g.getIdNo()));
-			view.setBankNo(StringUtils.trimToEmpty(g.getBankNo()));//新增一卡通账号查询
-			view.setStrDate(StringUtils.trimToEmpty(g.getGrantDate()));
-			view.setProName(StringUtils.trimToEmpty(g.getProName()));
-			if (StringUtils.isNotBlank(g.getfSex()))
-				view.setfSex(Integer.valueOf(StringUtils.trim(g.getfSex())) == 1 ? "男"
-						: "女");
-			else
-				view.setfSex("");
-			if (StringUtils.isNotBlank(g.getProId()))
-				view.setProId(Integer.valueOf(g.getProId()));
-			else
-				view.setProId(-1);
-			view.setGrantBatch(g.getGrantBatch());
-			view.setDetail(details);
-			view.setTotal(String.valueOf(NUM_FORMAT.format(g.getNum224())));
-			String remark=g.getRemark()!=null?g.getRemark():"";//添加备注
-			view.setRemark(remark);
-			views.add(view);
+			g.setDetail(details);
+			g.setTotal(String.valueOf(NUM_FORMAT.format(g.getNum224())));
 		}
 
-		return views;
 	}
 
 	@Override

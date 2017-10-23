@@ -17,6 +17,15 @@ public class ProjectDetail extends BaseEntity {
 	private String formulaName;
 	private Integer isCalculate;
 	private Integer formulaIndex;
+	
+	public ProjectDetail(String fieldName, String rgCode, String proCode){
+		this.fieldName = fieldName;
+		this.rgCode = rgCode;
+		this.proCode = proCode;
+	}
+	
+	public ProjectDetail(){
+	}
 
 	public String getDetailCode() {
 		return detailCode;
