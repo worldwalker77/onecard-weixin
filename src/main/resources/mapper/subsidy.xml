@@ -14,6 +14,7 @@
 		<result column="grant_date" property="grantDate"/>
 		<result column="bank_status" property="bankStatus"/>
 		<result column="pro_id" property="proId"/>
+		<result column="pro_id" property="proId"/>
 	</resultMap>
 	
 	<select id="selectSubsidys"  parameterType ="cn.worldwalker.onecard.weixin.domain.SubsidyModel" resultMap="subsidyResultMap">
