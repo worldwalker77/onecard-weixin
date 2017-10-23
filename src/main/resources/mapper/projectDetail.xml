@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.worldwalker.onecard.weixin.dao.ProjectDetailDao">
+
+	<resultMap id="detailResultMap" type="cn.worldwalker.onecard.weixin.domain.ProjectDetail" >
+		<id column="id" property="id"/>
+		<result column="detail_name" property="detailName"/>
+	</resultMap>
+	
+	<select id="getByfieldNameAndRgCodeAndProCode"  parameterType ="cn.worldwalker.onecard.weixin.domain.ProjectDetail" resultMap="detailResultMap">
+	    SELECT detail_name FROM cfs_project_detail 
+		WHERE field_name =#{fieldName} and rg_code = #{rgCode} and pro_code = #{proCode}
+	</select>
+	
+</mapper>
+
+

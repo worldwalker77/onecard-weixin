@@ -13,10 +13,11 @@
 		<result column="pro_name" property="proName"/>
 		<result column="grant_date" property="grantDate"/>
 		<result column="bank_status" property="bankStatus"/>
+		<result column="pro_id" property="proId"/>
 	</resultMap>
 	
 	<select id="selectSubsidys"  parameterType ="cn.worldwalker.onecard.weixin.domain.SubsidyModel" resultMap="subsidyResultMap">
-	    select id_no, f_name, en_name,gr_name,pro_name ,bank_status ,grant_date  from cfs_grant_360731
+	    select id_no, f_name, en_name,gr_name,pro_name ,bank_status ,grant_date,pro_id  from cfs_grant_360731
 	    where id_no = #{idNum}
 	    <if test="startTime != null">
 	    	and grant_date &gt; #{startTime}

@@ -10,6 +10,7 @@ public class SubsidyModel extends BaseModel{
 	private String proName;
 	private Date grantDate;
 	private Integer bankStatus;
+	private String rgCode;
 	
 	public String getIdNum() {
 		return idNum;

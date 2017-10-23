@@ -1,5 +1,8 @@
 package cn.worldwalker.onecard.weixin.service;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
@@ -14,12 +17,14 @@ import cn.worldwalker.onecard.weixin.common.utils.RequestUtil;
 import cn.worldwalker.onecard.weixin.dao.ContactInfoDao;
 import cn.worldwalker.onecard.weixin.dao.FeedbackDao;
 import cn.worldwalker.onecard.weixin.dao.PolicyDao;
+import cn.worldwalker.onecard.weixin.dao.ProjectDetailDao;
 import cn.worldwalker.onecard.weixin.dao.SubsidyDao;
 import cn.worldwalker.onecard.weixin.dao.WxBindDao;
 import cn.worldwalker.onecard.weixin.domain.ContactInfoModel;
 import cn.worldwalker.onecard.weixin.domain.FeedBackModel;
 import cn.worldwalker.onecard.weixin.domain.ModifyParam;
 import cn.worldwalker.onecard.weixin.domain.PolicyModel;
+import cn.worldwalker.onecard.weixin.domain.ProjectDetail;
 import cn.worldwalker.onecard.weixin.domain.Result;
 import cn.worldwalker.onecard.weixin.domain.SubsidyModel;
 import cn.worldwalker.onecard.weixin.domain.UserSession;
@@ -30,6 +35,8 @@ import cn.worldwalker.onecard.weixin.rpc.WeiXinRpc;
 @Service
 public class OneCardServiceImpl implements OneCardService{
 	protected static final Logger log = LoggerFactory.getLogger(OneCardServiceImpl.class);
+	private HashMap<String, ProjectDetail> map = new HashMap<String, ProjectDetail>();
+	private static DecimalFormat NUM_FORMAT = new DecimalFormat("0.00");
 	@Autowired
 	private WeiXinRpc weiXinRpc;
 	@Autowired
@@ -44,6 +51,8 @@ public class OneCardServiceImpl implements OneCardService{
 	private ContactInfoDao contactInfoDao;
 	@Autowired
 	private OneCardManager oneCardManager;
+	@Autowired
+	private ProjectDetailDao projectDetailDao;
 	/**
 	 * 绑定
 	 * @param idNum
@@ -209,6 +218,328 @@ public class OneCardServiceImpl implements OneCardService{
 		Result result = new Result();
 		result.setData(list);
 		return result;
+	}
+	
+public List<GrantView> queryGrantsByType(List<SubsidyModel> list,int pageIndex,int pageSize) {
+		
+		ProjectDetail tmp;
+		StringBuilder sb;
+		GrantView view;
+		List<GrantView> views = new ArrayList<GrantView>();
+		for (SubsidyModel g : list) {
+			if (g.getRgCode() == null)
+				continue;
+
+			// countNum = 0.0d;
+			sb = new StringBuilder();
+
+			String pro_id = g.getProId();
+			
+			// num2_1 - 30
+			if (pro_id.equalsIgnoreCase("03") || pro_id.equalsIgnoreCase("09")
+					|| pro_id.equalsIgnoreCase("17")
+					|| pro_id.equalsIgnoreCase("18")
+					|| pro_id.equalsIgnoreCase("19")
+					|| pro_id.equalsIgnoreCase("20")
+					|| pro_id.equalsIgnoreCase("22")
+					|| pro_id.equalsIgnoreCase("23")
+					|| pro_id.equalsIgnoreCase("24")
+					|| pro_id.equalsIgnoreCase("25")
+					|| pro_id.equalsIgnoreCase("16")
+					|| pro_id.equalsIgnoreCase("60")) {
+				if (g.getNum21() != null && g.getNum21().doubleValue() > 0.0d) {
+
+					tmp = map.get(g.getRgCode() + g.getProId() + "num2_1");
+					if (tmp == null) {
+						tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode("num2_1",
+								g.getRgCode(), g.getProId());
+						map.put(g.getRgCode() + g.getProId() + "num2_1", tmp);
+					}
+
+					if (tmp != null) {
+						g.setNum21Str(tmp.getDetailName() + ":" + NUM_FORMAT.format(g.getNum21()));
+						sb.append(g.getNum21Str()).append(',');
+					}
+				}
+			}
+			if (pro_id.equalsIgnoreCase("02") || pro_id.equalsIgnoreCase("03")
+					|| pro_id.equalsIgnoreCase("04")
+					|| pro_id.equalsIgnoreCase("07")
+					|| pro_id.equalsIgnoreCase("08")
+					|| pro_id.equalsIgnoreCase("10")
+					|| pro_id.equalsIgnoreCase("11")
+					|| pro_id.equalsIgnoreCase("12")
+					|| pro_id.equalsIgnoreCase("13")
+					|| pro_id.equalsIgnoreCase("14")
+					|| pro_id.equalsIgnoreCase("15")
+					|| pro_id.equalsIgnoreCase("16")
+					|| pro_id.equalsIgnoreCase("17")
+					|| pro_id.equalsIgnoreCase("19")
+					|| pro_id.equalsIgnoreCase("21")
+					|| pro_id.equalsIgnoreCase("22")
+					|| pro_id.equalsIgnoreCase("24")
+					|| pro_id.equalsIgnoreCase("60")) {
+				if (g.getNum22() != null && g.getNum22().doubleValue() > 0.0d) {
+					tmp = map.get(g.getRgCode() + g.getProId() + "num2_2");
+					if (tmp == null) {
+						tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode("num2_2",
+								g.getRgCode(), g.getProId());
+						map.put(g.getRgCode() + g.getProId() + "num2_2", tmp);
+					}
+
+					if (tmp != null) {
+						g.setNum22Str(tmp.getDetailName() + ":" + NUM_FORMAT.format(g.getNum22()));
+						sb.append(g.getNum22Str()).append(',');
+					}
+				}
+			}
+
+			if (pro_id.equalsIgnoreCase("01") || pro_id.equalsIgnoreCase("03")
+					|| pro_id.equalsIgnoreCase("06")
+					|| pro_id.equalsIgnoreCase("13")
+					|| pro_id.equalsIgnoreCase("14")
+					|| pro_id.equalsIgnoreCase("15")
+					|| pro_id.equalsIgnoreCase("16")
+					|| pro_id.equalsIgnoreCase("17")
+					|| pro_id.equalsIgnoreCase("60")) {
+				if (g.getNum23() != null && g.getNum23().doubleValue() > 0.0d) {
+					tmp = map.get(g.getRgCode() + g.getProId() + "num2_3");
+					if (tmp == null) {
+						tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode("num2_3",
+								g.getRgCode(), g.getProId());
+						map.put(g.getRgCode() + g.getProId() + "num2_3", tmp);
+					}
+
+					if (tmp != null) {
+						g.setNum23Str(tmp.getDetailName() + ":" + NUM_FORMAT.format(g.getNum23()));
+						sb.append(g.getNum23Str()).append(',');
+					}
+				}
+			}
+
+			if (pro_id.equalsIgnoreCase("03") || pro_id.equalsIgnoreCase("04")
+					|| pro_id.equalsIgnoreCase("06")
+					|| pro_id.equalsIgnoreCase("14")
+					|| pro_id.equalsIgnoreCase("16")
+					|| pro_id.equalsIgnoreCase("17")
+					|| pro_id.equalsIgnoreCase("60")) {
+				if (g.getNum24() != null && g.getNum24().doubleValue() > 0.0d) {
+					tmp = map.get(g.getRgCode() + g.getProId() + "num2_4");
+					if (tmp == null) {
+						tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode("num2_4",
+								g.getRgCode(), g.getProId());
+						map.put(g.getRgCode() + g.getProId() + "num2_4", tmp);
+					}
+
+					if (tmp != null) {
+						g.setNum24Str(tmp.getDetailName() + ":" + NUM_FORMAT.format(g.getNum24()));
+						sb.append(g.getNum24Str()).append(',');
+					}
+				}
+			}
+			if (pro_id.equalsIgnoreCase("03") || pro_id.equalsIgnoreCase("17")
+					|| pro_id.equalsIgnoreCase("16")
+					|| pro_id.equalsIgnoreCase("60")) {
+				if (g.getNum25() != null && g.getNum25().doubleValue() > 0.0d) {
+					tmp = map.get(g.getRgCode() + g.getProId() + "num2_5");
+					if (tmp == null) {
+						tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode("num2_5",
+								g.getRgCode(), g.getProId());
+						map.put(g.getRgCode() + g.getProId() + "num2_5", tmp);
+					}
+
+					if (tmp != null) {
+						g.setNum25Str(tmp.getDetailName() + ":" + NUM_FORMAT.format(g.getNum25()));
+						sb.append(g.getNum25Str()).append(',');
+					}
+				}
+			}
+			if (pro_id.equalsIgnoreCase("03") || pro_id.equalsIgnoreCase("04")
+					|| pro_id.equalsIgnoreCase("16")
+					|| pro_id.equalsIgnoreCase("17")
+					|| pro_id.equalsIgnoreCase("60")) {
+				if (g.getNum26() != null && g.getNum26().doubleValue() > 0.0d) {
+					tmp = map.get(g.getRgCode() + g.getProId() + "num2_6");
+					if (tmp == null) {
+						tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode("num2_6",
+								g.getRgCode(), g.getProId());
+						map.put(g.getRgCode() + g.getProId() + "num2_6", tmp);
+					}
+
+					if (tmp != null) {
+						g.setNum26Str(tmp.getDetailName() + ":" + NUM_FORMAT.format(g.getNum26()));
+						sb.append(g.getNum26Str()).append(',');
+					}
+				}
+			}
+			if (pro_id.equalsIgnoreCase("03") || pro_id.equalsIgnoreCase("16")
+					|| pro_id.equalsIgnoreCase("17")
+					|| pro_id.equalsIgnoreCase("60")) {
+				if (g.getNum27() != null && g.getNum27().doubleValue() > 0.0d) {
+					tmp = map.get(g.getRgCode() + g.getProId() + "num2_7");
+					if (tmp == null) {
+						tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode("num2_7",
+								g.getRgCode(), g.getProId());
+						map.put(g.getRgCode() + g.getProId() + "num2_7", tmp);
+					}
+
+					if (tmp != null) {
+						g.setNum27Str(tmp.getDetailName() + ":" + NUM_FORMAT.format(g.getNum27()));
+						sb.append(g.getNum27Str()).append(',');
+					}
+				}
+			}
+			if (pro_id.equalsIgnoreCase("03") || pro_id.equalsIgnoreCase("16")
+					|| pro_id.equalsIgnoreCase("17")
+					|| pro_id.equalsIgnoreCase("60")) {
+				if (g.getNum28() != null && g.getNum28().doubleValue() > 0.0d) {
+
+					tmp = map.get(g.getRgCode() + g.getProId() + "num2_8");
+					if (tmp == null) {
+						tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode("num2_8",
+								g.getRgCode(), g.getProId());
+						map.put(g.getRgCode() + g.getProId() + "num2_8", tmp);
+					}
+
+					if (tmp != null) {
+						g.setNum28Str(tmp.getDetailName() + ":" + NUM_FORMAT.format(g.getNum28()));
+						sb.append(g.getNum28Str()).append(',');
+					}
+				}
+			}
+			if (pro_id.equalsIgnoreCase("16") || pro_id.equalsIgnoreCase("17")
+					|| pro_id.equalsIgnoreCase("60")) {
+				if (g.getNum29() != null && g.getNum29().doubleValue() > 0.0d) {
+
+					tmp = map.get(g.getRgCode() + g.getProId() + "num2_9");
+					if (tmp == null) {
+						tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode("num2_9",
+								g.getRgCode(), g.getProId());
+						map.put(g.getRgCode() + g.getProId() + "num2_9", tmp);
+					}
+
+					if (tmp != null) {
+						g.setNum29Str(tmp.getDetailName() + ":" + NUM_FORMAT.format(g.getNum29()));
+						sb.append(g.getNum29Str()).append(',');
+					}
+				}
+			}
+			if (pro_id.equalsIgnoreCase("16") || pro_id.equalsIgnoreCase("17")
+					|| pro_id.equalsIgnoreCase("60")) {
+				if (g.getNum210() != null && g.getNum210().doubleValue() > 0.0d) {
+
+					tmp = map.get(g.getRgCode() + g.getProId() + "num2_10");
+					if (tmp == null) {
+						tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode(
+								"num2_10", g.getRgCode(), g.getProId());
+						map.put(g.getRgCode() + g.getProId() + "num2_10", tmp);
+					}
+
+					if (tmp != null) {
+						g.setNum210Str(tmp.getDetailName() + ":"
+								+ g.getNum210());
+						sb.append(g.getNum210Str()).append(',');
+					}
+				}
+			}
+			if (pro_id.equalsIgnoreCase("16")) {
+				if (g.getNum211() != null && g.getNum211().doubleValue() > 0.0d) {
+
+					tmp = map.get(g.getRgCode() + g.getProId() + "num2_11");
+					if (tmp == null) {
+						tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode(
+								"num2_11", g.getRgCode(), g.getProId());
+						map.put(g.getRgCode() + g.getProId() + "num2_11", tmp);
+					}
+
+					if (tmp != null) {
+						g.setNum211Str(tmp.getDetailName() + ":"
+								+ NUM_FORMAT.format(g.getNum211()));
+						sb.append(g.getNum211Str()).append(',');
+					}
+				}
+			}
+			if (pro_id.equalsIgnoreCase("16")) {
+				if (g.getNum212() != null && g.getNum212().doubleValue() > 0.0d) {
+
+					tmp = map.get(g.getRgCode() + g.getProId() + "num2_12");
+					if (tmp == null) {
+						tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode(
+								"num2_12", g.getRgCode(), g.getProId());
+						map.put(g.getRgCode() + g.getProId() + "num2_12", tmp);
+					}
+
+					if (tmp != null) {
+						g.setNum212Str(tmp.getDetailName() + ":"
+								+ NUM_FORMAT.format(g.getNum212()));
+						sb.append(g.getNum212Str()).append(',');
+					}
+				}
+			}
+			if (pro_id.equalsIgnoreCase("16")) {
+				if (g.getNum213() != null && g.getNum213().doubleValue() > 0.0d) {
+					tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode("num2_13",
+							g.getRgCode(), g.getProId());
+					if (tmp != null) {
+						g.setNum213Str(tmp.getDetailName() + ":"
+								+ g.getNum213());
+						sb.append(g.getNum213Str()).append(',');
+					}
+				}
+			}
+			
+			if (pro_id.equalsIgnoreCase("03")) {
+				if (g.getNum217() != null && g.getNum217().doubleValue() > 0.0d) {
+
+					tmp = map.get(g.getRgCode() + g.getProId() + "num2_17");
+					if (tmp == null) {
+						tmp = projectDetailDao.getByfieldNameAndRgCodeAndProCode(
+								"num2_17", g.getRgCode(), g.getProId());
+						map.put(g.getRgCode() + g.getProId() + "num2_17", tmp);
+					}
+
+					if (tmp != null) {
+						g.setNum217Str(tmp.getDetailName() + ":"
+								+ NUM_FORMAT.format(g.getNum217()));
+						sb.append(g.getNum217Str()).append(',');
+					}
+				}
+			}			
+			
+			String details = "";
+			if(sb.length()>0){
+				details= sb.substring(0,sb.length()-1);
+			}
+
+			view = new GrantView();
+
+			view.setBankStatus(StringUtils.trimToEmpty(g.getBankStatus()));
+			view.setErrorInfo(StringUtils.trimToEmpty(g.getErrorInfo()));
+			view.setfName(StringUtils.trimToEmpty(g.getfName()));
+			view.setEnName(StringUtils.trimToEmpty(g.getEnName()));
+			view.setGrName(StringUtils.trimToEmpty(g.getGrName()));
+			view.setIdNo(StringUtils.trimToEmpty(g.getIdNo()));
+			view.setBankNo(StringUtils.trimToEmpty(g.getBankNo()));//新增一卡通账号查询
+			view.setStrDate(StringUtils.trimToEmpty(g.getGrantDate()));
+			view.setProName(StringUtils.trimToEmpty(g.getProName()));
+			if (StringUtils.isNotBlank(g.getfSex()))
+				view.setfSex(Integer.valueOf(StringUtils.trim(g.getfSex())) == 1 ? "男"
+						: "女");
+			else
+				view.setfSex("");
+			if (StringUtils.isNotBlank(g.getProId()))
+				view.setProId(Integer.valueOf(g.getProId()));
+			else
+				view.setProId(-1);
+			view.setGrantBatch(g.getGrantBatch());
+			view.setDetail(details);
+			view.setTotal(String.valueOf(NUM_FORMAT.format(g.getNum224())));
+			String remark=g.getRemark()!=null?g.getRemark():"";//添加备注
+			view.setRemark(remark);
+			views.add(view);
+		}
+
+		return views;
 	}
 
 	@Override
