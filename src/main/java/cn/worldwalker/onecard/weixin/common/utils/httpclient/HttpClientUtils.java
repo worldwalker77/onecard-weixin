@@ -52,11 +52,11 @@ public class HttpClientUtils {
     }
     
     public static String postParameters(String url, String parameterStr) throws ConnectTimeoutException, SocketTimeoutException, Exception{
-        return post(url,parameterStr,"application/x-www-form-urlencoded",charset,connTimeout,readTimeout);
+        return post(url,parameterStr,"application/json",charset,connTimeout,readTimeout);
     }
     
     public static String postParameters(String url, String parameterStr,String charset, Integer connTimeout, Integer readTimeout) throws ConnectTimeoutException, SocketTimeoutException, Exception{
-        return post(url,parameterStr,"application/x-www-form-urlencoded",charset,connTimeout,readTimeout);
+        return post(url,parameterStr,"application/json",charset,connTimeout,readTimeout);
     }
     
     public static String postParameters(String url, Map<String, String> params) throws ConnectTimeoutException,  
@@ -82,7 +82,7 @@ public class HttpClientUtils {
      *  
      * @param url 
      * @param body RequestBody 
-     * @param mimeType 例如 application/xml "application/x-www-form-urlencoded" a=1&b=2&c=3
+     * @param mimeType 例如 application/xml application/x-www-form-urlencoded application/json a=1&b=2&c=3
      * @param charset 编码 
      * @param connTimeout 建立链接超时时间,毫秒. 
      * @param readTimeout 响应超时时间,毫秒. 

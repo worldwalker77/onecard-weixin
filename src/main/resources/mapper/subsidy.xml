@@ -79,6 +79,9 @@
 		<result property="num320" column="num3_20" />
 		
 		<result property="num224" column="num2_24" />
+		
+		<result property="bankName" column="bank_name" />
+		<result property="bankNo" column="bank_no" />
 	</resultMap>
 	
 	<select id="selectSubsidys"  parameterType ="cn.worldwalker.onecard.weixin.domain.SubsidyModel" resultMap="subsidyResultMap">
@@ -96,6 +99,33 @@
 	    limit #{start},#{limit}
 	</select>
 	
+	<select id="selectNeedWeixinNoticeSubsidys"  parameterType ="cn.worldwalker.onecard.weixin.domain.SubsidyModel" resultMap="subsidyResultMap">
+	    select id, id_no, f_name, en_name,gr_name,pro_name ,bank_status ,grant_date,pro_id,rg_code,bank_name,bank_no,
+	    num2_1,num2_2,num2_3,num2_4,num2_5,num2_6,num2_7,num2_8,num2_9,num2_10,num2_11,num2_12,num2_13,num2_17,num2_24
+	    from cfs_grant_360731
+	    where grant_date &gt; #{startTime}
+	    	and grant_date  &lt; #{endTime}
+	    	and bank_status = 2 and num_2 != 1
+	    limit 100
+	</select>
+	
+	
+    <update id="batchUpdateWeixinSendStatus"  parameterType="java.util.List">  
+         <foreach collection="list" item="item" index="index" open="" close="" separator=";">  
+               update cfs_grant_360731   
+               <set>  
+                 num_2 = 1
+               </set>  
+               where id = ${item.id}  
+        </foreach>  
+     </update>  
+     
+     <update id="updateWeixinSendStatus"  parameterType = "Long">
+		update cfs_grant_360731   
+        set num_2 = 1
+        where id = ${id}
+	</update>
+     
 	<update id="updateIdNum"  parameterType = "map">
 		update cfs_grant_360731 
 		set id_no = #{newIdNum}

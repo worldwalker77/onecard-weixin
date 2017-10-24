@@ -12,6 +12,7 @@ public class DateUtil {
 	public static final String zhCNPattern = "yyyy年MM月dd日 HH点mm分ss秒";
 
 	public static final String zhCNPatternDate = "yyyy年MM月dd日";
+	
 	/**
 	 * 格式化时间
 	 * @Title: format    

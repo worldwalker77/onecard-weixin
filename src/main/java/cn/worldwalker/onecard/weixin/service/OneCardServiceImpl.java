@@ -1,7 +1,6 @@
 package cn.worldwalker.onecard.weixin.service;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -220,8 +219,8 @@ public class OneCardServiceImpl implements OneCardService{
 		result.setData(list);
 		return result;
 	}
-	
-	private void queryGrantsByType(List<SubsidyModel> list) {
+	@Override
+	public void queryGrantsByType(List<SubsidyModel> list) {
 		
 		ProjectDetail tmp;
 		StringBuilder sb;
