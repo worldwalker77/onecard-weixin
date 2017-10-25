@@ -1,6 +1,7 @@
 package cn.worldwalker.onecard.weixin.job;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -32,7 +33,7 @@ public class SubsidyNoticeMsgJob {
 	private OneCardService oneCardService;
 	@Autowired
 	private WxBindDao wxBindDao;
-	
+	@Autowired
 	private AccessTokenRefreshJob accessTokenRefreshJob;
 	
 	public void doTask(){
@@ -83,7 +84,9 @@ public class SubsidyNoticeMsgJob {
 					continue;
 				}
 				/**更新发送状态*/
-				subsidyDao.updateWeixinSendStatus(noticeModel.getId());
+				HashMap<String, Object> map = new HashMap<String, Object>();
+				map.put("uuid", noticeModel.getUuid());
+				subsidyDao.updateWeixinSendStatus(map);
 			} catch (Exception e) {
 				log.error("发送模板消息接口返回异常,request:" + params + ",response:" + result, e);
 			}

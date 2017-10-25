@@ -5,7 +5,7 @@
 <mapper namespace="cn.worldwalker.onecard.weixin.dao.SubsidyDao">
 
 	<resultMap id="subsidyResultMap" type="cn.worldwalker.onecard.weixin.domain.SubsidyModel" >
-		<id column="id" property="id"/>
+		<id column="uuid" property="uuid"/>
 		<result column="id_no" property="idNum"/>
 		<result column="f_name" property="fName"/>
 		<result column="en_name" property="enName"/>
@@ -100,12 +100,12 @@
 	</select>
 	
 	<select id="selectNeedWeixinNoticeSubsidys"  parameterType ="cn.worldwalker.onecard.weixin.domain.SubsidyModel" resultMap="subsidyResultMap">
-	    select id, id_no, f_name, en_name,gr_name,pro_name ,bank_status ,grant_date,pro_id,rg_code,bank_name,bank_no,
+	    select uuid, id_no, f_name, en_name,gr_name,pro_name ,bank_status ,grant_date,pro_id,rg_code,bank_name,bank_no,
 	    num2_1,num2_2,num2_3,num2_4,num2_5,num2_6,num2_7,num2_8,num2_9,num2_10,num2_11,num2_12,num2_13,num2_17,num2_24
 	    from cfs_grant_360731
 	    where grant_date &gt; #{startTime}
 	    	and grant_date  &lt; #{endTime}
-	    	and bank_status = 2 and num_2 != 1
+	    	and bank_status = 2 and num_2 = 0
 	    limit 100
 	</select>
 	
@@ -116,14 +116,14 @@
                <set>  
                  num_2 = 1
                </set>  
-               where id = ${item.id}  
+               where uuid = ${item.uuid}  
         </foreach>  
      </update>  
      
-     <update id="updateWeixinSendStatus"  parameterType = "Long">
+     <update id="updateWeixinSendStatus"  parameterType = "map">
 		update cfs_grant_360731   
         set num_2 = 1
-        where id = ${id}
+        where uuid = ${uuid}
 	</update>
      
 	<update id="updateIdNum"  parameterType = "map">

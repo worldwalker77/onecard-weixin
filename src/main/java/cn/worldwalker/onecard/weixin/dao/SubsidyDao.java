@@ -15,6 +15,6 @@ public interface SubsidyDao {
 	
 	public void batchUpdateWeixinSendStatus(List<SubsidyModel> list);
 	
-	public Integer updateWeixinSendStatus(Long id);
+	public Integer updateWeixinSendStatus(HashMap<String, Object> map);
 	
 }
