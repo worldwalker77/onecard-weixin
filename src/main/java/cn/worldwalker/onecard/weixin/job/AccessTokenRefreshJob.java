@@ -14,7 +14,7 @@ public class AccessTokenRefreshJob{
 	protected static final Logger log = LoggerFactory.getLogger(AccessTokenRefreshJob.class);
 	private static String accessCode = null;
 	
-	public String execute() {
+	public String doTask() {
 		String accessTokenUrl = Constant.getAccessTokenUrl;
 		try {
 			AccessToken accessToken = JsonUtil.toObject(HttpClientUtils.get(accessTokenUrl), AccessToken.class);

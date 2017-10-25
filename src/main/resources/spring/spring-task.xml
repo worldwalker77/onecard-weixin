@@ -15,7 +15,7 @@ http://www.springframework.org/schema/task/spring-task-3.0.xsd
 	<task:scheduler id="scheduler" pool-size="2"/>  
 	
     <task:scheduled-tasks scheduler="scheduler">
-    	<task:scheduled ref="sbusidyNoticeMsgJob" method="doTask" cron="0 0/5 * * * ?"/>
+    	<task:scheduled ref="subsidyNoticeMsgJob" method="doTask" cron="0 0/5 * * * ?"/>
     </task:scheduled-tasks>
     <task:scheduled-tasks scheduler="scheduler">
     	<task:scheduled ref="accessTokenRefreshJob" method="doTask" cron="0 0 0/1 * * ?"/>

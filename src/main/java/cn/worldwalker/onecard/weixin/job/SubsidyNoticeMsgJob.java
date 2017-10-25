@@ -21,7 +21,7 @@ import cn.worldwalker.onecard.weixin.domain.wxapi.TemplateMsg;
 import cn.worldwalker.onecard.weixin.domain.wxapi.TemplateMsgResponse;
 import cn.worldwalker.onecard.weixin.service.OneCardService;
 
-@Component(value="sbusidyNoticeMsgJob")
+@Component(value="subsidyNoticeMsgJob")
 public class SubsidyNoticeMsgJob {
 	
 	protected static final Logger log = LoggerFactory.getLogger(SubsidyNoticeMsgJob.class);
@@ -35,7 +35,7 @@ public class SubsidyNoticeMsgJob {
 	
 	private AccessTokenRefreshJob accessTokenRefreshJob;
 	
-	public void excute(){
+	public void doTask(){
 		String today = DateUtil.format(new Date(), "yyyy-MM-dd");
 		SubsidyModel model = new SubsidyModel();
 		model.setStartTime(today + " 00:00:00");
@@ -71,7 +71,7 @@ public class SubsidyNoticeMsgJob {
 			String url = Constant.sendTemplateMsgUrl;
 			String token = AccessTokenRefreshJob.getAccessCode();
 			if (StringUtils.isEmpty(token)) {
-				token = accessTokenRefreshJob.execute();
+				token = accessTokenRefreshJob.doTask();
 			}
 			url = url.replace("ACCESS_TOKEN", AccessTokenRefreshJob.getAccessCode());
 			String result = "";
@@ -88,5 +88,22 @@ public class SubsidyNoticeMsgJob {
 				log.error("发送模板消息接口返回异常,request:" + params + ",response:" + result, e);
 			}
 		}
+	}
+	
+	public static void main(String[] args) {
+		String token = "4B0RfKkGjGxS3ZUUwd5pQED2TxRI4iKgcaDG5zECsYnkjVMBzWRdPN0M9d_x8frqJLklc9oRYWMkQ-m_uNBBZpU2VU_r7UwmB8Sv-s_uioJNNHxlriiYJx3bNac0JkQcEGLhAFAVXC";
+		TemplateMsg msg = new TemplateMsg();
+		msg.setTemplate_id(Constant.templateId);
+		msg.setTouser("owOENwWf_yn3l0JXu-u8BYzoxOfw");
+		msg.setUrl("");
+		msg.getData().getFirst().setValue("粮食补贴");
+		msg.getData().getKeyword1().setValue("张三");
+		msg.getData().getKeyword2().setValue("100.00");
+		msg.getData().getKeyword3().setValue("农村信用社");
+		msg.getData().getKeyword4().setValue("111111111111");
+		msg.getData().getKeyword5().setValue("2017-10-25 15:27:00");
+		msg.getData().getRemark().setValue("粮食补贴100.00元");
+		String params = JsonUtil.toJson(msg);
+		System.out.println(params);
 	}
 }
