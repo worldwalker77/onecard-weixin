@@ -46,8 +46,15 @@ public class OneCardManagerImpl implements OneCardManager{
 		if (!resModel.getMobilePhone().equals(oldTel)) {
 			throw new BusinessException(ExceptionEnum.TEL_NOT_MATCH);
 		}
+		/**查询新身份证号是否已经被别人绑定*/
 		wxModel.setIdNum(newIdNum);
+		wxModel.setOpenId(null);
+		resModel = wxBindDao.selectWxBind(wxModel);
+		if (resModel != null && !oldIdNum.equals(newIdNum)) {
+			throw new BusinessException(ExceptionEnum.HAS_BIND_BY_OTHER_PEOPLE);
+		}
 		wxModel.setMobilePhone(newTel);
+		wxModel.setOpenId(RequestUtil.getOpenIdFromSession());
 		Integer res = wxBindDao.updateWxBindIdNum(wxModel);
 		if(res < 1){
 			throw new BusinessException(ExceptionEnum.MODIFY_FAIL);
