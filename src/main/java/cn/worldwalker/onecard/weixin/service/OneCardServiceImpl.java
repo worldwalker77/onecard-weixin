@@ -69,9 +69,16 @@ public class OneCardServiceImpl implements OneCardService{
 //		if (cim == null) {
 //			throw new BusinessException(ExceptionEnum.ID_NUM_NOT_EXIST);
 //		}
+		
+		/**查询新身份证号是否已经被别人绑定*/
 		WxBindModel model = new WxBindModel();
-		model.setOpenId(openId);
 		model.setIdNum(idNum);
+		WxBindModel resModel =  wxBindDao.selectWxBind(model);
+		if (resModel != null) {
+			throw new BusinessException(ExceptionEnum.HAS_BIND_BY_OTHER_PEOPLE);
+		}
+		
+		model.setOpenId(openId);
 		model.setMobilePhone(mobilePhone);
 		wxBindDao.insertWxBind(model);
 		
