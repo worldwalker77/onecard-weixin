@@ -26,5 +26,5 @@ http://www.springframework.org/schema/task/spring-task-3.0.xsd
 		</property>
 	</bean>
 	<import resource="/spring/spring-ds.xml" />
-	
+	<import resource="/spring/spring-task.xml" />
 </beans>

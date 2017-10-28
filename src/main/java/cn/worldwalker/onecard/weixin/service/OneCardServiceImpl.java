@@ -1,7 +1,6 @@
 package cn.worldwalker.onecard.weixin.service;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -70,9 +69,16 @@ public class OneCardServiceImpl implements OneCardService{
 //		if (cim == null) {
 //			throw new BusinessException(ExceptionEnum.ID_NUM_NOT_EXIST);
 //		}
+		
+		/**查询新身份证号是否已经被别人绑定*/
 		WxBindModel model = new WxBindModel();
-		model.setOpenId(openId);
 		model.setIdNum(idNum);
+		WxBindModel resModel =  wxBindDao.selectWxBind(model);
+		if (resModel != null) {
+			throw new BusinessException(ExceptionEnum.HAS_BIND_BY_OTHER_PEOPLE);
+		}
+		
+		model.setOpenId(openId);
 		model.setMobilePhone(mobilePhone);
 		wxBindDao.insertWxBind(model);
 		
@@ -120,7 +126,7 @@ public class OneCardServiceImpl implements OneCardService{
 	@Override
 	public String getOpenIdFromWeiXin(String code) {
 		return weiXinRpc.getOpenId(code);
-//		return "owOENwaaII9RANdtNiIzyTa69_Rc";
+//		return "owOENwWf_yn3l0JXu-u8BYzoxOfw";
 	}
 
 	/**
@@ -220,8 +226,8 @@ public class OneCardServiceImpl implements OneCardService{
 		result.setData(list);
 		return result;
 	}
-	
-	private void queryGrantsByType(List<SubsidyModel> list) {
+	@Override
+	public void queryGrantsByType(List<SubsidyModel> list) {
 		
 		ProjectDetail tmp;
 		StringBuilder sb;

@@ -154,6 +154,14 @@ public class OneCardController {
 		}
 		return result;
 	}
+	public static void main(String[] args) {
+		ModifyParam param = new ModifyParam();
+		param.setNewIdNum("362121194806156434");
+		param.setNewTel("13006339011");
+		param.setOldIdNum("362121196907013618");
+		param.setOldTel("13006339011");
+		System.out.println(JsonUtil.toJson(param));
+	}
 	
 	@RequestMapping(value="/modifySuccess")
 	public ModelAndView modifySuccess(){

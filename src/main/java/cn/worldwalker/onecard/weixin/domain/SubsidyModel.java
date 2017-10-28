@@ -47,6 +47,9 @@ public class SubsidyModel extends BaseModel{
 	private String detail;
 	private String total;
 	
+	private String bankName;
+	private String bankNo;
+	
 	public Double getNum23() {
 		return num23;
 	}
@@ -287,6 +290,18 @@ public class SubsidyModel extends BaseModel{
 	}
 	public void setNum224(Double num224) {
 		this.num224 = num224;
+	}
+	public String getBankName() {
+		return bankName;
+	}
+	public void setBankName(String bankName) {
+		this.bankName = bankName;
+	}
+	public String getBankNo() {
+		return bankNo;
+	}
+	public void setBankNo(String bankNo) {
+		this.bankNo = bankNo;
 	}
 	
 }
