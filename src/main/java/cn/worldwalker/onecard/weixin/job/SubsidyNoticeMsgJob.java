@@ -41,6 +41,7 @@ public class SubsidyNoticeMsgJob {
 		SubsidyModel model = new SubsidyModel();
 		model.setStartTime(today + " 00:00:00");
 		model.setEndTime(today + " 23:59:59");
+		doSendMsg(today + " 00:00:00", today + " 23:59:59");
 	}
 	
 	public void doSendMsg(String startTime, String endTime){
@@ -94,19 +95,19 @@ public class SubsidyNoticeMsgJob {
 	}
 	
 	public static void main(String[] args) {
-		String token = "4B0RfKkGjGxS3ZUUwd5pQED2TxRI4iKgcaDG5zECsYnkjVMBzWRdPN0M9d_x8frqJLklc9oRYWMkQ-m_uNBBZpU2VU_r7UwmB8Sv-s_uioJNNHxlriiYJx3bNac0JkQcEGLhAFAVXC";
-		TemplateMsg msg = new TemplateMsg();
-		msg.setTemplate_id(Constant.templateId);
-		msg.setTouser("owOENwWf_yn3l0JXu-u8BYzoxOfw");
-		msg.setUrl("");
-		msg.getData().getFirst().setValue("粮食补贴");
-		msg.getData().getKeyword1().setValue("张三");
-		msg.getData().getKeyword2().setValue("100.00");
-		msg.getData().getKeyword3().setValue("农村信用社");
-		msg.getData().getKeyword4().setValue("111111111111");
-		msg.getData().getKeyword5().setValue("2017-10-25 15:27:00");
-		msg.getData().getRemark().setValue("粮食补贴100.00元");
-		String params = JsonUtil.toJson(msg);
-		System.out.println(params);
+//		String token = "4B0RfKkGjGxS3ZUUwd5pQED2TxRI4iKgcaDG5zECsYnkjVMBzWRdPN0M9d_x8frqJLklc9oRYWMkQ-m_uNBBZpU2VU_r7UwmB8Sv-s_uioJNNHxlriiYJx3bNac0JkQcEGLhAFAVXC";
+//		TemplateMsg msg = new TemplateMsg();
+//		msg.setTemplate_id(Constant.templateId);
+//		msg.setTouser("owOENwWf_yn3l0JXu-u8BYzoxOfw");
+//		msg.setUrl("");
+//		msg.getData().getFirst().setValue("粮食补贴");
+//		msg.getData().getKeyword1().setValue("张三");
+//		msg.getData().getKeyword2().setValue("100.00");
+//		msg.getData().getKeyword3().setValue("农村信用社");
+//		msg.getData().getKeyword4().setValue("111111111111");
+//		msg.getData().getKeyword5().setValue("2017-10-25 15:27:00");
+//		msg.getData().getRemark().setValue("粮食补贴100.00元");
+//		String params = JsonUtil.toJson(msg);
+//		System.out.println(params);
 	}
 }

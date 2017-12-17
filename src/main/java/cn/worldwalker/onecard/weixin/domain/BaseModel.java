@@ -3,25 +3,14 @@ package cn.worldwalker.onecard.weixin.domain;
 import java.util.Date;
 
 public class BaseModel {
+	private Long id;
 	private Long uuid;
-	private Date createTime;
-	private Date updateTime;
+	private String createTime;
+	private String updateTime;
 	private int start = 0;
 	private int limit = 10;
 	private String startTime;
 	private String endTime;
-	public Date getCreateTime() {
-		return createTime;
-	}
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
-	public Date getUpdateTime() {
-		return updateTime;
-	}
-	public void setUpdateTime(Date updateTime) {
-		this.updateTime = updateTime;
-	}
 	public int getStart() {
 		return start;
 	}
@@ -51,6 +40,24 @@ public class BaseModel {
 	}
 	public void setUuid(Long uuid) {
 		this.uuid = uuid;
+	}
+	public String getCreateTime() {
+		return createTime;
+	}
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
+	public String getUpdateTime() {
+		return updateTime;
+	}
+	public void setUpdateTime(String updateTime) {
+		this.updateTime = updateTime;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 }

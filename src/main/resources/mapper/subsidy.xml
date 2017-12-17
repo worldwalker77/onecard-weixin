@@ -106,7 +106,7 @@
 	    where grant_date &gt; #{startTime}
 	    	and grant_date  &lt; #{endTime}
 	    	and bank_status = 2 and num_2 = 0
-	    limit 100
+	    limit 50
 	</select>
 	
 	
