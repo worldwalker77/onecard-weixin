@@ -1,6 +1,5 @@
 package cn.worldwalker.onecard.weixin.domain;
 
-import java.util.Date;
 
 public class BaseModel {
 	private Long id;
